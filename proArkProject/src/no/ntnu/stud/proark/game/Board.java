@@ -1,4 +1,5 @@
-package no.ntnu.stud.proark;
+package no.ntnu.stud.proark.game;
+
 
 public class Board {
 

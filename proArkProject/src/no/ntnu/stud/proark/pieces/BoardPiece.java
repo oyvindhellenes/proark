@@ -1,4 +1,4 @@
-package no.ntnu.stud.proark;
+package no.ntnu.stud.proark.pieces;
 
 public abstract class BoardPiece {
 
