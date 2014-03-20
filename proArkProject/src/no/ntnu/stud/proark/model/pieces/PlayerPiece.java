@@ -10,7 +10,8 @@ public class PlayerPiece extends BoardPiece {
 	private String name;
 	private int color;
 	
-	public PlayerPiece(String n, int c) {
+	public PlayerPiece(String n, int c, int posX, int posY) {
+		super(posX, posY);
 		this.name = n;
 		this.color = c;
 		this.playerState = PlayerPieceState.OBSERVE;
