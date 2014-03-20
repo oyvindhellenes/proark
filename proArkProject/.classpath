@@ -5,5 +5,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="/Users/oyvindhellenes/Downloads/com.genymobile.genymotion.ide.eclipse.plugin_1.0.2.201401301616.jar"/>
+	<classpathentry kind="lib" path="/Users/oyvindhellenes/Downloads/com.genymobile.genymotion.lib_1.0.2.201401301616.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
