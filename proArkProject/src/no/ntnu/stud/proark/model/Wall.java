@@ -1,4 +1,4 @@
-package no.ntnu.stud.proark.game;
+package no.ntnu.stud.proark.model;
 
 import java.util.Vector;
 
