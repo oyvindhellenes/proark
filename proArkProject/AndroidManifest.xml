@@ -26,6 +26,10 @@
             android:name="no.ntnu.stud.proark.states.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name="no.ntnu.stud.proark.states.GameActivity"
+            android:label="@string/title_activity_game" >
+        </activity>
     </application>
 
 </manifest>
