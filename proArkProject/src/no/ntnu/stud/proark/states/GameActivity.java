@@ -12,7 +12,17 @@ import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Display;
 import android.view.Menu;
+<<<<<<< HEAD
 import android.view.MenuItem;
+=======
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.Toast;
+>>>>>>> 2778c4856411150924ff3bb72551ea83aa100092
 
 public class GameActivity extends ActionBarActivity {
 	
@@ -25,16 +35,27 @@ public class GameActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_game);
 		
-		GameBoard game = new GameBoard(level, goal, piece);
-		BoardView view = new BoardView(game, this);
+		final GridView gridview = (GridView) findViewById(R.id.gridview);
+	    gridview.setAdapter(new ImageAdapter(this));
 
-		setContentView(view);
-		Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		Parameters.getInstance().setPixelHeight(size.y);
-		Parameters.getInstance().setPixelWidth(size.x);
+	    gridview.setOnItemClickListener(new OnItemClickListener() {
+	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+	        	((ImageView) v).setImageResource(R.drawable.ic_launcher);
+	            Toast.makeText(GameActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+	        }
+	    });
+		
+//		GameBoard game = new GameBoard(level, goal, piece);
+//		BoardView view = new BoardView(game, this);
+//
+//		setContentView(view);
+//		Display display = getWindowManager().getDefaultDisplay();
+//		Point size = new Point();
+//		display.getSize(size);
+//		Parameters.getInstance().setPixelHeight(size.y);
+//		Parameters.getInstance().setPixelWidth(size.x);
 		
 	}
 
