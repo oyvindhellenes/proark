@@ -12,9 +12,7 @@ import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Display;
 import android.view.Menu;
-<<<<<<< HEAD
 import android.view.MenuItem;
-=======
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -22,7 +20,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
->>>>>>> 2778c4856411150924ff3bb72551ea83aa100092
 
 public class GameActivity extends ActionBarActivity {
 	
