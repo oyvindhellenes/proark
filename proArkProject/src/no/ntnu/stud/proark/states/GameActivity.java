@@ -4,11 +4,9 @@ import no.ntnu.stud.proark.Parameters;
 import no.ntnu.stud.proark.R;
 import no.ntnu.stud.proark.R.layout;
 import no.ntnu.stud.proark.R.menu;
+import no.ntnu.stud.proark.controller.BoardController;
 import no.ntnu.stud.proark.model.Difficulty;
 import no.ntnu.stud.proark.model.GameBoard;
-import no.ntnu.stud.proark.model.pieces.BoardPiece;
-import no.ntnu.stud.proark.model.pieces.GoalPiece;
-import no.ntnu.stud.proark.model.pieces.PlayerPiece;
 import no.ntnu.stud.proark.view.BoardView;
 import android.os.Bundle;
 import android.app.Activity;
@@ -23,18 +21,17 @@ public class GameActivity extends Activity {
 	
 	// Test data
 	
-	private Difficulty level = Difficulty.EASY;
-	private PlayerPiece piece = new PlayerPiece("Jens", 1, 10,10);
-	private GoalPiece goal = new GoalPiece(50,50);
+	private Difficulty level = Difficulty.EASY;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		GameBoard game = new GameBoard(level, goal, piece);
-		BoardView view = new BoardView(game, this);
-
-		setContentView(view);
+		GameBoard board = new GameBoard(level);
+		BoardController boardController = new BoardController(board);
+		BoardView boardView = new BoardView(board, this);
+		
+		setContentView(boardView);
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
