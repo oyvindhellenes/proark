@@ -2,24 +2,19 @@ package no.ntnu.stud.proark.states;
 
 import no.ntnu.stud.proark.Parameters;
 import no.ntnu.stud.proark.R;
-import no.ntnu.stud.proark.R.layout;
-import no.ntnu.stud.proark.R.menu;
 import no.ntnu.stud.proark.model.Difficulty;
 import no.ntnu.stud.proark.model.GameBoard;
-import no.ntnu.stud.proark.model.pieces.BoardPiece;
 import no.ntnu.stud.proark.model.pieces.GoalPiece;
 import no.ntnu.stud.proark.model.pieces.PlayerPiece;
 import no.ntnu.stud.proark.view.BoardView;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Point;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Display;
 import android.view.Menu;
-import android.view.WindowManager;
+import android.view.MenuItem;
 
-public class GameActivity extends Activity {
+public class GameActivity extends ActionBarActivity {
 	
 	// Test data
 	
@@ -46,8 +41,21 @@ public class GameActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.game, menu);
+		getMenuInflater().inflate(R.menu.settings, menu);
 		return true;
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		int itemId = item.getItemId();
+		
+		if(itemId == R.id.action_settings) {
+			//TODO
+		}
+		return super.onOptionsItemSelected(item);
+		
+	}
+	
 
 }
