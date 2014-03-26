@@ -1,4 +1,4 @@
-package view;
+package no.ntnu.stud.proark.view;
 
 import no.ntnu.stud.proark.model.GameBoard;
 import android.content.Context;

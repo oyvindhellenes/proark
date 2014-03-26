@@ -1,6 +1,5 @@
 package no.ntnu.stud.proark.states;
 
-import view.BoardView;
 import no.ntnu.stud.proark.Parameters;
 import no.ntnu.stud.proark.R;
 import no.ntnu.stud.proark.R.layout;
@@ -10,6 +9,7 @@ import no.ntnu.stud.proark.model.GameBoard;
 import no.ntnu.stud.proark.model.pieces.BoardPiece;
 import no.ntnu.stud.proark.model.pieces.GoalPiece;
 import no.ntnu.stud.proark.model.pieces.PlayerPiece;
+import no.ntnu.stud.proark.view.BoardView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
