@@ -17,7 +17,13 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.view.Display;
 import android.view.Menu;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class GameActivity extends Activity {
 	
@@ -30,16 +36,27 @@ public class GameActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_game);
 		
-		GameBoard game = new GameBoard(level, goal, piece);
-		BoardView view = new BoardView(game, this);
+		final GridView gridview = (GridView) findViewById(R.id.gridview);
+	    gridview.setAdapter(new ImageAdapter(this));
 
-		setContentView(view);
-		Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		Parameters.getInstance().setPixelHeight(size.y);
-		Parameters.getInstance().setPixelWidth(size.x);
+	    gridview.setOnItemClickListener(new OnItemClickListener() {
+	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+	        	((ImageView) v).setImageResource(R.drawable.ic_launcher);
+	            Toast.makeText(GameActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+	        }
+	    });
+		
+//		GameBoard game = new GameBoard(level, goal, piece);
+//		BoardView view = new BoardView(game, this);
+//
+//		setContentView(view);
+//		Display display = getWindowManager().getDefaultDisplay();
+//		Point size = new Point();
+//		display.getSize(size);
+//		Parameters.getInstance().setPixelHeight(size.y);
+//		Parameters.getInstance().setPixelWidth(size.x);
 		
 	}
 
