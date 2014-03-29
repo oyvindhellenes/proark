@@ -9,7 +9,7 @@ import no.ntnu.stud.proark.model.pieces.PlayerPiece;
 import no.ntnu.stud.proark.view.BoardView;
 import android.os.Bundle;
 import android.graphics.Point;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +21,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class GameActivity extends ActionBarActivity {
+public class GameActivity extends Activity {
 	
 	// Test data
 	

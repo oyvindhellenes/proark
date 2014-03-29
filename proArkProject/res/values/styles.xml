@@ -16,7 +16,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-     <style name="StandardTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+     <style name="StandardTheme" parent="android:Theme.Holo.Light.NoActionBar.Fullscreen">
 
     </style>
 
