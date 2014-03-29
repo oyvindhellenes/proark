@@ -27,33 +27,29 @@ public class GameActivity extends Activity {
 	// Test data
 	
 	private Difficulty level = Difficulty.EASY;	
+	private BoardView boardView;
+	private GameBoard board;
+	private BoardController boardController;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 		
-		final GridView gridview = (GridView) findViewById(R.id.gridview);
-	    gridview.setAdapter(new ImageAdapter(this));
+		board = new GameBoard(level);
+		boardView = new BoardView(this);
+		boardController = new BoardController(board, boardView);
+		
+		final GridView gridView = (GridView) findViewById(R.id.gridview);
+		gridView.setAdapter(new ImageAdapter(this));
 
-	    gridview.setOnItemClickListener(new OnItemClickListener() {
-	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-	        	((ImageView) v).setImageResource(R.drawable.ic_launcher);
-	            Toast.makeText(GameActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+	    gridView.setOnItemClickListener(new OnItemClickListener() {
+	        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	        	boardController.tileClicked(view, position);
 	        }
 	    });
 		
-//		GameBoard board = new GameBoard(level);
-//		BoardController boardController = new BoardController(board);
-//		BoardView boardView = new BoardView(board, this);
-//		
-//		setContentView(boardView);
-//		Display display = getWindowManager().getDefaultDisplay();
-//		Point size = new Point();
-//		display.getSize(size);
-//		Parameters.getInstance().setPixelHeight(size.y);
-//		Parameters.getInstance().setPixelWidth(size.x);
-		
+	    
 	}
 
 	@Override
