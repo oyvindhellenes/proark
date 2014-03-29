@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -37,10 +38,22 @@ public class BoardView extends BaseAdapter {
         return 0;
     }
 	
-    public boolean updateTile(View v, int position) {
-    	((ImageView) v).setImageResource(R.drawable.ic_launcher);
+    public void playerCrashed(char direction, int player) {
+    	switch (direction) {
+    		case 'N':
+    	
+    	}
+    }
+    
+    public void updateTile(ViewGroup parent, int position, boolean reset) {
+    	if (reset) {
+    		((ImageView) parent.getChildAt(position)).setImageResource(R.drawable.ic_tile);
+    	}
+    	else {
+    		((ImageView) parent.getChildAt(position)).setImageResource(R.drawable.ic_launcher);
+    	}
         Toast.makeText(mainContext.getApplicationContext(), "" + position, Toast.LENGTH_SHORT).show();
-        return true;
+        
     }
     
     // create a new ImageView for each item referenced by the Adapter

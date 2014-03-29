@@ -41,11 +41,11 @@ public class GameActivity extends Activity {
 		boardController = new BoardController(board, boardView);
 		
 		final GridView gridView = (GridView) findViewById(R.id.gridview);
-		gridView.setAdapter(new ImageAdapter(this));
+		gridView.setAdapter(new BoardView(this));
 
 	    gridView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	        	boardController.tileClicked(view, position);
+	        	boardController.tileClicked(parent, position);
 	        }
 	    });
 		

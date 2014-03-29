@@ -1,6 +1,7 @@
 package no.ntnu.stud.proark.controller;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -14,6 +15,8 @@ public class BoardController {
 	private final GameBoard board;
 	private final BoardView boardView;
 	
+	private int lastPositionClicked = -1;
+	
 	public BoardController(GameBoard board, BoardView boardView) {
 		this.board = board;
 		this.boardView = boardView;
@@ -23,8 +26,13 @@ public class BoardController {
 		return !board.getWalls().contains(move);
 	}
 	
-	public void tileClicked(View v, int position) {
-		boardView.updateTile(v, position);
+	public void tileClicked(ViewGroup parent, int position) {
+		if (lastPositionClicked >= 0) {
+			boardView.updateTile(parent, lastPositionClicked, true);
+		}
+		
+		lastPositionClicked = position;
+		boardView.updateTile(parent, position, false);
 		
 	}
 	
