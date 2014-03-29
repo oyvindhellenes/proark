@@ -6,15 +6,15 @@ public abstract class BoardPiece {
 	int position;
 	
 
-	public BoardPiece(int pos) {
-		this.position = pos;
+	public BoardPiece(int position) {
+		this.position = position;
 	}
 	
-	public int getPositionX() {
+	public int getPosition() {
 		return position;
 	}
 	
-	public void setPositionY(int pos) {
-		this.position = pos;
+	public void setPosition(int position) {
+		this.position = position;
 	}
 }

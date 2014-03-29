@@ -11,29 +11,46 @@ import no.ntnu.stud.proark.model.Move;
 import no.ntnu.stud.proark.view.BoardView;
 
 public class BoardController {
-
+	
 	private final GameBoard board;
 	private final BoardView boardView;
 	
-	private int lastPositionClicked = -1;
+	private int turn = 1;
 	
 	public BoardController(GameBoard board, BoardView boardView) {
 		this.board = board;
 		this.boardView = boardView;
 	}
 	
+	public void startGame() {
+		
+	}
+	
 	public boolean isValidMove(Move move) {
-		return !board.getWalls().contains(move);
+		if (move == null) {
+			return false;
+		}		
+		return true;
+	}
+
+	public boolean collidesWithWall(Move move) {
+		if (board.getWalls().contains(move)) {
+			return true;
+		}
+		return false;
 	}
 	
 	public void tileClicked(ViewGroup parent, int position) {
-		if (lastPositionClicked >= 0) {
-			boardView.updateTile(parent, lastPositionClicked, true);
+		Move move = board.makeMove(1, position);
+		if (!isValidMove(move)) {
+			boardView.updateTile(parent, position, false);
 		}
-		
-		lastPositionClicked = position;
-		boardView.updateTile(parent, position, false);
-		
+		else if {
+			boardView.showText("Found a wall");
+		}
+		else {
+			boardView.showText("Invalid move");
+		}
 	}
 	
 }

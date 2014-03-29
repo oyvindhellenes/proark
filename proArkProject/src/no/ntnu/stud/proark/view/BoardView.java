@@ -42,7 +42,7 @@ public class BoardView extends BaseAdapter {
     public int playerCrashed(char direction, PlayerPiece player, int position) {
     	switch (direction) {
     		case 'N':
-    			return player.getCrashNorth();
+    			//return player.getCrashNorth();
     			break;
     		case 'S':
     			break;
@@ -51,6 +51,8 @@ public class BoardView extends BaseAdapter {
     		case 'W':
     			break;
     	}
+    	
+    	return 0;
     }
     private void updateTile(ViewGroup parent, int position, int tileImage){
     	((ImageView) parent.getChildAt(position)).setImageResource(tileImage);
@@ -64,7 +66,7 @@ public class BoardView extends BaseAdapter {
     	else {
     		((ImageView) parent.getChildAt(position)).setImageResource(R.drawable.ic_launcher);
     	}
-        Toast.makeText(mainContext.getApplicationContext(), "" + position, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(mainContext.getApplicationContext(), "" + position, Toast.LENGTH_SHORT).show();
         
     }
     

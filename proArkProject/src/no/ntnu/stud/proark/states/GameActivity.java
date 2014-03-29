@@ -49,6 +49,7 @@ public class GameActivity extends Activity {
 	        }
 	    });
 		
+	    boardController.startGame();
 	    
 	}
 
