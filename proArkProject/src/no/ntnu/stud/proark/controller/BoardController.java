@@ -27,27 +27,10 @@ public class BoardController {
 		
 	}
 	
-	public boolean isValidMove(Move move) {
-		if (move == null) {
-			return false;
-		}		
-		return true;
-	}
-
-	public boolean collidesWithWall(Move move) {
-		if (board.getWalls().contains(move)) {
-			return true;
-		}
-		return false;
-	}
-	
 	public void tileClicked(ViewGroup parent, int position) {
 		Move move = board.makeMove(1, position);
-		if (!isValidMove(move)) {
-			boardView.showText("Invalid move");
-		}
-		else if (collidesWithWall(move)) {
-			boardView.showText("Found a wall");
+		if (move.isError()) {
+			boardView.showText(move.getErrorReason());
 		}
 		else {
 			boardView.updateTile(parent, move.getFrom(), Tile.EMPTY);

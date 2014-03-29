@@ -16,6 +16,7 @@ public class GameBoard {
 	
 	private Difficulty level;
 	private Tile[] board = new Tile[36];
+	// Players are stored at their ID, goal piece is position 0.
 	private Map<Integer, BoardPiece> pieces = new HashMap<Integer, BoardPiece>();
 	
 	// Predefined set of walls
@@ -55,25 +56,43 @@ public class GameBoard {
 		return board[position];
 	}
 	
+	public boolean isValidMove(Move move) {
+		if (Math.abs(move.getFrom() - move.getTo()) == 1 || Math.abs(move.getFrom() - move.getTo()) == 6) {
+			return true;
+		}		
+		return false;
+	}
+
+	public boolean collidesWithWall(Move move) {
+		if (this.getWalls().contains(move)) {
+			return true;
+		}
+		return false;
+	}
+	
 	public Move makeMove(int player, int moveTo) {
-		// TODO fetch from player object
-		PlayerPiece current = (PlayerPiece)pieces.get(player);
-		System.out.println("PLayer: "+current.getName());
-		if (Math.abs(current.getPosition() - moveTo) == 1 || Math.abs(current.getPosition() - moveTo) == 6) {
-			board[current.getPosition()] = Tile.EMPTY;
-			Move move = new Move(current.getPosition(), moveTo);
-			current.setPosition(moveTo);
+		PlayerPiece currentPlayer = (PlayerPiece)pieces.get(player);
+		Move move = new Move(currentPlayer.getPosition(), moveTo);
+		if (!isValidMove(move)) {
+			move.setError(true);
+			move.setErrorReason("Invalid move");
+		}
+		else if (collidesWithWall(move)) {
+			move.setError(true);
+			move.setErrorReason("Found a wall");
+		}
+		else {
+			board[move.getFrom()] = Tile.EMPTY;
+			currentPlayer.setPosition(moveTo);
 			if (player == 1) {
 				board[moveTo] = Tile.PLAYER_ONE;
 			}
 			if (player == 2) {
 				board[moveTo] = Tile.PLAYER_TWO;
 			}
-			return move;
 		}
 
-		// move wasn't valid, return null
-		return null;
+		return move;
 	}
 	
 }

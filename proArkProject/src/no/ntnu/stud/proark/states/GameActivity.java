@@ -7,6 +7,7 @@ import no.ntnu.stud.proark.R.menu;
 import no.ntnu.stud.proark.controller.BoardController;
 import no.ntnu.stud.proark.model.Difficulty;
 import no.ntnu.stud.proark.model.GameBoard;
+import no.ntnu.stud.proark.model.Tile;
 import no.ntnu.stud.proark.view.BoardView;
 import android.os.Bundle;
 import android.graphics.Point;
@@ -48,7 +49,13 @@ public class GameActivity extends Activity {
 	        	boardController.tileClicked(parent, position);
 	        }
 	    });
-		
+
+	    /*
+	    boardView.updateTile(gridView, 0, Tile.PLAYER_ONE);
+	    boardView.updateTile(gridView, 35, Tile.PLAYER_TWO);
+	    boardView.updateTile(gridView, 20, Tile.GOAL);
+	    */
+	    
 	    boardController.startGame();
 	    
 	}
