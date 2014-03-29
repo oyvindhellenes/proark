@@ -48,6 +48,10 @@ public class GameBoard {
 		return this.walls;
 	}
 	
+	public Tile getTile(int position) {
+		return board[position];
+	}
+	
 	public Move makeMove(int player, int moveTo) {
 		// TODO fetch from player object
 		BoardPiece current = pieces.get(player);

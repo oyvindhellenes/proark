@@ -43,13 +43,13 @@ public class BoardController {
 	public void tileClicked(ViewGroup parent, int position) {
 		Move move = board.makeMove(1, position);
 		if (!isValidMove(move)) {
-			boardView.updateTile(parent, position, false);
+			boardView.showText("Invalid move");
 		}
-		else if {
+		else if (collidesWithWall(move)) {
 			boardView.showText("Found a wall");
 		}
 		else {
-			boardView.showText("Invalid move");
+			boardView.updateTile(parent, position, board.getTile(position));
 		}
 	}
 	
