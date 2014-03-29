@@ -40,7 +40,7 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(R.drawable.ic_tile);
+        imageView.setImageResource(R.drawable.empty);
         return imageView;
     }
 }

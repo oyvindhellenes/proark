@@ -1,7 +1,9 @@
 package no.ntnu.stud.proark.model;
 
-public class Tile {
-	public Tile() {
-		
-	}
+public enum Tile {
+	EMPTY,
+	GOAL,
+	AVAILABLE_MOVE,
+	PLAYER_ONE,
+	PLAYER_TWO;
 }
