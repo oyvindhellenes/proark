@@ -56,6 +56,10 @@ public class BoardView extends BaseAdapter {
         
     }
     
+    public void showText(String text) {
+    	Toast.makeText(mainContext.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+    }
+    
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
