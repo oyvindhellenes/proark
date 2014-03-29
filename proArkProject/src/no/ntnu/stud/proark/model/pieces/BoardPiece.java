@@ -3,27 +3,18 @@ package no.ntnu.stud.proark.model.pieces;
 public abstract class BoardPiece {
 	
 	//Position
-	int posX;
-	int posY;
+	int position;
 	
 
-	public BoardPiece(int x, int y) {
-		// TODO Auto-generated constructor stub
+	public BoardPiece(int pos) {
+		this.position = pos;
 	}
 	
 	public int getPositionX() {
-		return posX;
+		return position;
 	}
 	
-	public int setPositionY() {
-		return posY;
-	}
-	
-	public void setPositionX(int x) {
-		this.posX = x;
-	}
-	
-	public void setPositionY(int y) {
-		this.posY = y;
+	public void setPositionY(int pos) {
+		this.position = pos;
 	}
 }

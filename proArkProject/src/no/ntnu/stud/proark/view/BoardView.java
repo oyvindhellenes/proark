@@ -2,6 +2,7 @@ package no.ntnu.stud.proark.view;
 
 import no.ntnu.stud.proark.R;
 import no.ntnu.stud.proark.model.GameBoard;
+import no.ntnu.stud.proark.model.pieces.PlayerPiece;
 import no.ntnu.stud.proark.states.GameActivity;
 import no.ntnu.stud.proark.states.ImageAdapter;
 import android.content.Context;
@@ -38,12 +39,23 @@ public class BoardView extends BaseAdapter {
         return 0;
     }
 	
-    public void playerCrashed(char direction, int player) {
+    public int playerCrashed(char direction, PlayerPiece player, int position) {
     	switch (direction) {
     		case 'N':
-    	
+    			return player.getCrashNorth();
+    			break;
+    		case 'S':
+    			break;
+    		case 'E':
+    			break;
+    		case 'W':
+    			break;
     	}
     }
+    private void updateTile(ViewGroup parent, int position, int tileImage){
+    	((ImageView) parent.getChildAt(position)).setImageResource(tileImage);
+    }
+    
     
     public void updateTile(ViewGroup parent, int position, boolean reset) {
     	if (reset) {
