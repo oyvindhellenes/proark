@@ -42,7 +42,6 @@ public class BoardView extends BaseAdapter {
     public int playerCrashed(char direction, PlayerPiece player, int position) {
     	switch (direction) {
     		case 'N':
-    			return player.getCrashNorth();
     			break;
     		case 'S':
     			break;

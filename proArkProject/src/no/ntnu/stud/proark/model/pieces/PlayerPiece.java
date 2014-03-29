@@ -39,5 +39,6 @@ public class PlayerPiece extends BoardPiece {
     public int getPlayerNumber(){
     	return this.playerNumber;
     }
+    
 
 }
