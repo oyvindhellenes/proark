@@ -26,7 +26,6 @@ public class GameBoard {
 		this.level = level;
 		this.goalPiece = goalPiece;
 		this.playerPiece = playerPiece;
-		this.pieces = new BoardPiece[8][8];
 	}
 	
 	public Set<Move> getWalls() {
