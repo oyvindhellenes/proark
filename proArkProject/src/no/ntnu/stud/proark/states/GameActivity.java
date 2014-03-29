@@ -43,16 +43,16 @@ public class GameActivity extends Activity {
 	        }
 	    });
 		
-		GameBoard board = new GameBoard(level);
-		BoardController boardController = new BoardController(board);
-		BoardView boardView = new BoardView(board, this);
-		
-		setContentView(boardView);
-		Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		Parameters.getInstance().setPixelHeight(size.y);
-		Parameters.getInstance().setPixelWidth(size.x);
+//		GameBoard board = new GameBoard(level);
+//		BoardController boardController = new BoardController(board);
+//		BoardView boardView = new BoardView(board, this);
+//		
+//		setContentView(boardView);
+//		Display display = getWindowManager().getDefaultDisplay();
+//		Point size = new Point();
+//		display.getSize(size);
+//		Parameters.getInstance().setPixelHeight(size.y);
+//		Parameters.getInstance().setPixelWidth(size.x);
 		
 	}
 
