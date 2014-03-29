@@ -20,7 +20,7 @@ public enum Tile {
 	PLAYER_TWO_CRASH_W(R.drawable.crash_w_pl2);
 	
 	private int imageRef;
-	public int getTileImage(Tile tile){
+	public int getTileImage(){
 		return this.imageRef;
 	}
 	Tile(int imageRef){

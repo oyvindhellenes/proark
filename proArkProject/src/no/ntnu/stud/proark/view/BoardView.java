@@ -2,6 +2,7 @@ package no.ntnu.stud.proark.view;
 
 import no.ntnu.stud.proark.R;
 import no.ntnu.stud.proark.model.GameBoard;
+import no.ntnu.stud.proark.model.Tile;
 import no.ntnu.stud.proark.model.pieces.PlayerPiece;
 import no.ntnu.stud.proark.states.GameActivity;
 import no.ntnu.stud.proark.states.ImageAdapter;
@@ -38,33 +39,11 @@ public class BoardView extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
-	
-    public int playerCrashed(char direction, PlayerPiece player, int position) {
-    	switch (direction) {
-    		case 'N':
-    			break;
-    		case 'S':
-    			break;
-    		case 'E':
-    			break;
-    		case 'W':
-    			break;
-    	}
-    }
-    private void updateTile(ViewGroup parent, int position, int tileImage){
-    	((ImageView) parent.getChildAt(position)).setImageResource(tileImage);
-    }
+
     
     
-    public void updateTile(ViewGroup parent, int position, boolean reset) {
-    	if (reset) {
-    		((ImageView) parent.getChildAt(position)).setImageResource(R.drawable.ic_tile);
-    	}
-    	else {
-    		((ImageView) parent.getChildAt(position)).setImageResource(R.drawable.ic_launcher);
-    	}
-        Toast.makeText(mainContext.getApplicationContext(), "" + position, Toast.LENGTH_SHORT).show();
-        
+    public void updateTile(ViewGroup parent, int position, Tile tile) {
+    		((ImageView) parent.getChildAt(position)).setImageResource(tile.getTileImage());
     }
     
     // create a new ImageView for each item referenced by the Adapter
