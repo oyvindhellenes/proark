@@ -30,7 +30,7 @@ public class BoardView extends BaseAdapter {
     }    
     
     public void updateTile(ViewGroup parent, int position, Tile tile) {
-    		((ImageView) parent.getChildAt(position)).setImageResource(tile.getTileImage());
+    	((ImageView) parent.getChildAt(position)).setImageResource(tile.getTileImage());
     }
     
     public void showText(String text) {
@@ -49,8 +49,8 @@ public class BoardView extends BaseAdapter {
         } else {
             imageView = (ImageView) convertView;
         }
-
-        imageView.setImageResource(R.drawable.ic_tile);
+        
+        imageView.setImageResource(R.drawable.empty);
         return imageView;
     }
 	

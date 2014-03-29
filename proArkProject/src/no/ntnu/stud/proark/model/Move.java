@@ -10,9 +10,9 @@ public class Move {
 	}
 	
 	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof Move)) return false;
-		Move move = (Move)o;
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Move)) return false;
+		Move move = (Move)obj;
 		
 		if (this.from == move.from &&
 				this.to == move.to) return true;
@@ -20,6 +20,14 @@ public class Move {
 				this.to == move.from) return true;
 			
 		return false;
+	}
+	
+	public int getFrom() {
+		return this.from;
+	}
+	
+	public int getTo() {
+		return this.to;
 	}
 	
 }

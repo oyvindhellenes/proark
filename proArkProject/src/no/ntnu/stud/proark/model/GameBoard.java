@@ -36,6 +36,9 @@ public class GameBoard {
 	
 	public GameBoard(Difficulty level) {
 		this.level = level;
+		for (int i=0; i<board.length; i++) {
+			board[i] = Tile.EMPTY;
+		}
 		board[0] = Tile.PLAYER_ONE;
 		board[35] = Tile.PLAYER_TWO;
 		board[20] = Tile.GOAL;
@@ -54,10 +57,18 @@ public class GameBoard {
 	
 	public Move makeMove(int player, int moveTo) {
 		// TODO fetch from player object
-		BoardPiece current = pieces.get(player);
+		PlayerPiece current = (PlayerPiece)pieces.get(player);
+		System.out.println("PLayer: "+current.getName());
 		if (Math.abs(current.getPosition() - moveTo) == 1 || Math.abs(current.getPosition() - moveTo) == 6) {
+			board[current.getPosition()] = Tile.EMPTY;
 			Move move = new Move(current.getPosition(), moveTo);
 			current.setPosition(moveTo);
+			if (player == 1) {
+				board[moveTo] = Tile.PLAYER_ONE;
+			}
+			if (player == 2) {
+				board[moveTo] = Tile.PLAYER_TWO;
+			}
 			return move;
 		}
 

@@ -8,6 +8,7 @@ import android.widget.Toast;
 import no.ntnu.stud.proark.R;
 import no.ntnu.stud.proark.model.GameBoard;
 import no.ntnu.stud.proark.model.Move;
+import no.ntnu.stud.proark.model.Tile;
 import no.ntnu.stud.proark.view.BoardView;
 
 public class BoardController {
@@ -49,6 +50,7 @@ public class BoardController {
 			boardView.showText("Found a wall");
 		}
 		else {
+			boardView.updateTile(parent, move.getFrom(), Tile.EMPTY);
 			boardView.updateTile(parent, position, board.getTile(position));
 		}
 	}
