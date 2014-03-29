@@ -8,12 +8,12 @@ public class PlayerPiece extends BoardPiece {
 
 	private PlayerPieceState playerState;
 	private String name;
-	private int color;
+	private int playerNumber;
+	private int position;
 	
-	public PlayerPiece(String n, int c, int posX, int posY) {
-		super(posX, posY);
+	public PlayerPiece(String n, int pos) {
+		super(pos);
 		this.name = n;
-		this.color = c;
 		this.playerState = PlayerPieceState.OBSERVE;
 	}
 	
@@ -28,11 +28,6 @@ public class PlayerPiece extends BoardPiece {
         return this.playerState;
     }
     
-    public Paint setColor(){
-        Paint paint = new Paint();
-        paint.setColor(this.color);
-        return paint;
-    }
     
     public void setName(String n) {
     	this.name = n;
@@ -40,6 +35,9 @@ public class PlayerPiece extends BoardPiece {
     
     public String getName(){
     	return this.name;
+    }
+    public int getPlayerNumber(){
+    	return this.playerNumber;
     }
 
 }
