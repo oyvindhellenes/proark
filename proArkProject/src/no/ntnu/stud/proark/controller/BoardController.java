@@ -5,6 +5,7 @@ import no.ntnu.stud.proark.model.GameBoard;
 import no.ntnu.stud.proark.model.GameScore;
 import no.ntnu.stud.proark.model.Move;
 import no.ntnu.stud.proark.model.Tile;
+import no.ntnu.stud.proark.model.pieces.Dice;
 import no.ntnu.stud.proark.view.BoardView;
 
 public class BoardController {
@@ -46,13 +47,14 @@ public class BoardController {
 	
 	public void resetGameVariables() {
 		currentPlayer = 1;
-		currentDiceRoll = 3;
+		currentDiceRoll = Dice.roll();
 		movesLeft = currentDiceRoll;
 	}
 	
 	public void showDiceRoll(int number) {
 		// this.currentDiceRoll
 		// kall view her
+		boardView.updateDice(number);
 	}
 	
 	private void playerMoved(ViewGroup parent) {
@@ -78,7 +80,8 @@ public class BoardController {
 	
 	private void nextPlayer() {
 		currentPlayer = board.getNextPLayer(currentPlayer);
-		movesLeft = 3;
+		movesLeft = Dice.roll();
+		showDiceRoll(movesLeft);
 	}
 	
 	private void drawPieces(ViewGroup parent) {
