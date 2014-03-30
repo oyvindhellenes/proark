@@ -1,5 +1,6 @@
 package no.ntnu.stud.proark.model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -44,6 +45,8 @@ public class GameBoard {
 		for (int i=0; i<board.length; i++) {
 			board[i] = Tile.EMPTY;
 		}
+		pieces.put(1, new PlayerPiece("Player 1", startingPositions[player_one_start]));
+		pieces.put(2, new PlayerPiece("Player 1", startingPositions[player_one_start]));
 		setPositions();
 	}
 	
@@ -51,8 +54,8 @@ public class GameBoard {
 		board[startingPositions[player_one_start]] = Tile.PLAYER_ONE;
 		board[startingPositions[player_two_start]] = Tile.PLAYER_TWO;
 		board[20] = Tile.GOAL;
-		pieces.put(1, new PlayerPiece("Player 1", startingPositions[player_one_start]));
-		pieces.put(2, new PlayerPiece("Player 2", startingPositions[player_two_start]));
+		pieces.get(1).setPosition(startingPositions[player_one_start]);
+		pieces.get(2).setPosition(startingPositions[player_two_start]);
 		pieces.put(0, new GoalPiece(20));
 	}
 	
@@ -88,9 +91,28 @@ public class GameBoard {
 		return pieces.get(piece).getPosition();
 	}
 	
+	public String getPlayerName(int player) {
+		return ((PlayerPiece)pieces.get(player)).getName();
+	}
+	
+	public void movePlayerToStart(int player) {
+		if (player == 1) {
+			board[pieces.get(player).getPosition()] = Tile.EMPTY;
+			pieces.get(player).setPosition(startingPositions[player_one_start]);
+			board[pieces.get(player).getPosition()] = Tile.PLAYER_ONE;
+		}
+		if (player == 2) {
+			board[pieces.get(player).getPosition()] = Tile.EMPTY;
+			pieces.get(player).setPosition(startingPositions[player_two_start]);
+			board[pieces.get(player).getPosition()] = Tile.PLAYER_TWO;
+		}
+	}
+	
 	public void newRound() {
-		player_one_start = player_one_start == 3 ? 0 : player_one_start++;
-		player_two_start = player_two_start == 3 ? 0 : player_two_start++;
+		player_one_start = player_one_start == 3 ? 0 : ++player_one_start;
+		player_two_start = player_two_start == 3 ? 0 : ++player_two_start;
+		movePlayerToStart(1);
+		movePlayerToStart(2);
 		setPositions();
 	}
 	
@@ -104,12 +126,16 @@ public class GameBoard {
 		}		
 		return false;
 	}
-
+	
 	public boolean collidesWithWall(Move move) {
 		if (this.getWalls().contains(move)) {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean alreadyOccupied(int position) {
+		return (board[position] == Tile.PLAYER_ONE || board[position] == Tile.PLAYER_TWO);
 	}
 	
 	public Move makeMove(int player, int moveTo) {
@@ -123,6 +149,10 @@ public class GameBoard {
 			move.setError(true);
 			move.setErrorReason("Found a wall");
 			move.setHitWall(true);
+		}
+		else if (alreadyOccupied(moveTo)) {
+			move.setError(true);
+			move.setErrorReason("A player already stands on this tile");
 		}
 		else {
 			board[move.getFrom()] = Tile.EMPTY;
