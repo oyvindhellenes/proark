@@ -15,9 +15,12 @@ import no.ntnu.stud.proark.model.pieces.PlayerPiece;
 public class GameBoard {
 	
 	private Difficulty level;
+	private int players;
 	private Tile[] board = new Tile[36];
 	// Players are stored at their ID, goal piece is position 0.
 	private Map<Integer, BoardPiece> pieces = new HashMap<Integer, BoardPiece>();
+	private int[] startingPositions = new int[]{0,30,35,5};
+	private int player_one_start = 0, player_two_start = 2;
 	
 	// Predefined set of walls
 	private Set<Move> walls = new HashSet<Move>(){{
@@ -35,16 +38,21 @@ public class GameBoard {
 		add(new Move(28, 29));
 	}};
 	
-	public GameBoard(Difficulty level) {
+	public GameBoard(Difficulty level, int players) {
 		this.level = level;
+		this.players = players;
 		for (int i=0; i<board.length; i++) {
 			board[i] = Tile.EMPTY;
 		}
-		board[0] = Tile.PLAYER_ONE;
-		board[35] = Tile.PLAYER_TWO;
+		setPositions();
+	}
+	
+	public void setPositions() {
+		board[startingPositions[player_one_start]] = Tile.PLAYER_ONE;
+		board[startingPositions[player_two_start]] = Tile.PLAYER_TWO;
 		board[20] = Tile.GOAL;
-		pieces.put(1, new PlayerPiece("Player 1", 0));
-		pieces.put(2, new PlayerPiece("Player 2", 35));
+		pieces.put(1, new PlayerPiece("Player 1", startingPositions[player_one_start]));
+		pieces.put(2, new PlayerPiece("Player 2", startingPositions[player_two_start]));
 		pieces.put(0, new GoalPiece(20));
 	}
 	
@@ -55,6 +63,40 @@ public class GameBoard {
 	public Tile getTile(int position) {
 		return board[position];
 	}
+	
+	/*
+	 * State methods
+	 */
+	
+	public int getNextPLayer(int currentPlayer) {
+		if (currentPlayer == players) {
+			return 1;
+		}
+		else {
+			return currentPlayer + 1;
+		}
+	}
+	
+	/**
+	 * Returns the position of a piece.
+	 * Goal is piece 0.
+	 * 
+	 * @param piece
+	 * @return position of the piece
+	 */
+	public int getPiecePosition(int piece) {
+		return pieces.get(piece).getPosition();
+	}
+	
+	public void newRound() {
+		player_one_start = player_one_start == 3 ? 0 : player_one_start++;
+		player_two_start = player_two_start == 3 ? 0 : player_two_start++;
+		setPositions();
+	}
+	
+	/*
+	 * Moving
+	 */
 	
 	public boolean isValidMove(Move move) {
 		if (Math.abs(move.getFrom() - move.getTo()) == 1 || Math.abs(move.getFrom() - move.getTo()) == 6) {
