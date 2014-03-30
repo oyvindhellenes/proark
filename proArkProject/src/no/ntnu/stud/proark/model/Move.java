@@ -2,8 +2,10 @@ package no.ntnu.stud.proark.model;
 
 public class Move {
 
-	private int from, to;
+	private int from;
+	private int to;
 	private boolean error = false;
+	private boolean hitWall = false;
 	private String errorReason = "";
 	
 	public Move(int from, int to) {
@@ -27,12 +29,37 @@ public class Move {
 		return this.error;
 	}
 	
+	public boolean hitWall() {
+		return hitWall;
+	}
+
+	public void setHitWall(boolean hitWall) {
+		this.hitWall = hitWall;
+	}
+
 	public void setErrorReason(String reason) {
 		this.errorReason = reason;
 	}
 	
 	public String getErrorReason() {
 		return this.errorReason;
+	}
+	
+	/**
+	 * Which direction the player was moving when the crash occurred.
+	 * 
+	 * @return int North=0, East=1, South=2, West=3
+	 */
+	public char getCrashDirection() {
+		if (hitWall) {
+			if (Math.abs(from - to) == 1) {
+				return to > from ? 'E' : 'W';
+			}
+			if (Math.abs(from - to) == 6) {
+				return to > from ? 'S' : 'N';
+			}
+		}
+		return '-';
 	}
 	
 	@Override
@@ -48,6 +75,7 @@ public class Move {
 		return false;
 	}
 	
+	@Override
 	public int hashCode() {
 		if (from > to) {
 			return (from*1000) + to;

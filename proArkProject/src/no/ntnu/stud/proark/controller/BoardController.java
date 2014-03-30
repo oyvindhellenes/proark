@@ -1,11 +1,6 @@
 package no.ntnu.stud.proark.controller;
 
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.Toast;
-import no.ntnu.stud.proark.R;
 import no.ntnu.stud.proark.model.GameBoard;
 import no.ntnu.stud.proark.model.Move;
 import no.ntnu.stud.proark.model.Tile;
@@ -13,24 +8,48 @@ import no.ntnu.stud.proark.view.BoardView;
 
 public class BoardController {
 	
-	private final GameBoard board;
-	private final BoardView boardView;
+	private static BoardController instance = null;
 	
-	private int turn = 1;
+	private GameBoard board;
+	private BoardView boardView;
 	
-	public BoardController(GameBoard board, BoardView boardView) {
-		this.board = board;
+	private int currentPlayer = 1;
+	
+	public BoardController() {
+	}
+	
+	public static BoardController getInstance() {
+		if (instance == null) {
+			instance = new BoardController();
+		}
+		return instance;
+	}
+	
+	public void setBoardView(BoardView boardView) {
 		this.boardView = boardView;
+	}
+	
+	public void setBoard(GameBoard board) {
+		this.board = board;
 	}
 	
 	public void startGame() {
 		
 	}
 	
+	public void showDiceRoll(int number) {
+		// kall view her
+	}
+	
 	public void tileClicked(ViewGroup parent, int position) {
-		Move move = board.makeMove(1, position);
+		Move move = board.makeMove(currentPlayer, position);
 		if (move.isError()) {
 			boardView.showText(move.getErrorReason());
+			if (move.hitWall()) {
+				String tileWanted = currentPlayer == 1 ? "PLAYER_ONE" : "PLAYER_TWO";
+				tileWanted += "_CRASH_" + move.getCrashDirection();
+				boardView.updateTile(parent, move.getFrom(), Tile.valueOf(tileWanted));
+			}
 		}
 		else {
 			boardView.updateTile(parent, move.getFrom(), Tile.EMPTY);

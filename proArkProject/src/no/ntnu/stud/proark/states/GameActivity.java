@@ -1,28 +1,23 @@
 package no.ntnu.stud.proark.states;
 
-import no.ntnu.stud.proark.Parameters;
 import no.ntnu.stud.proark.R;
-import no.ntnu.stud.proark.R.layout;
-import no.ntnu.stud.proark.R.menu;
 import no.ntnu.stud.proark.controller.BoardController;
 import no.ntnu.stud.proark.model.Difficulty;
 import no.ntnu.stud.proark.model.GameBoard;
 import no.ntnu.stud.proark.model.Tile;
 import no.ntnu.stud.proark.view.BoardView;
 import android.os.Bundle;
-import android.graphics.Point;
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.Toast;
 
+@SuppressLint("NewApi")
 public class GameActivity extends Activity {
 	
 	// Test data
@@ -38,26 +33,38 @@ public class GameActivity extends Activity {
 		setContentView(R.layout.activity_game);
 		
 		board = new GameBoard(level);
-		boardView = new BoardView(this);
-		boardController = new BoardController(board, boardView);
+		boardView = BoardView.getInstance();
+		boardView.setContext(this);
+		boardController = BoardController.getInstance();
+		boardController.setBoard(board);
+		boardController.setBoardView(boardView);
 		
 		final GridView gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new BoardView(this));
 
 	    gridView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	        	System.out.println("Parent: " + parent);
+	        	System.out.println("Children: " + parent.getChildCount());
 	        	boardController.tileClicked(parent, position);
 	        }
 	    });
+	    
+	    gridView.getViewTreeObserver().addOnGlobalLayoutListener(
+	    	new ViewTreeObserver.OnGlobalLayoutListener() {
 
-	    /*
-	    boardView.updateTile(gridView, 0, Tile.PLAYER_ONE);
-	    boardView.updateTile(gridView, 35, Tile.PLAYER_TWO);
-	    boardView.updateTile(gridView, 20, Tile.GOAL);
-	    */
+			@Override
+	        public void onGlobalLayout() {
+	        	boardView.updateTile(gridView, 0, Tile.PLAYER_ONE);
+	     	    boardView.updateTile(gridView, 35, Tile.PLAYER_TWO);
+	     	    boardView.updateTile(gridView, 20, Tile.GOAL);
+
+	            // unregister listener (this is important)
+	            gridView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+	        }
+	    });
 	    
-	    boardController.startGame();
-	    
+	    boardController.startGame();	    
 	}
 
 	@Override

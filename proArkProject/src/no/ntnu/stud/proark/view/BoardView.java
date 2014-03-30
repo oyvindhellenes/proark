@@ -11,10 +11,22 @@ import android.widget.Toast;
 
 public class BoardView extends BaseAdapter {
 	
+	private static BoardView instance = null;
+	
 	private Context mainContext;
 
-    public BoardView(Context context) {
-        mainContext = context;
+    public BoardView() {
+    }
+    
+    public static BoardView getInstance() {
+    	if (instance == null) {
+    		instance = new BoardView();
+    	}
+    	return instance;
+    }
+    
+    public void setContext(Context context) {
+    	this.mainContext = context;
     }
 
     public int getCount() {

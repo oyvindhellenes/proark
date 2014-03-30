@@ -80,6 +80,7 @@ public class GameBoard {
 		else if (collidesWithWall(move)) {
 			move.setError(true);
 			move.setErrorReason("Found a wall");
+			move.setHitWall(true);
 		}
 		else {
 			board[move.getFrom()] = Tile.EMPTY;
