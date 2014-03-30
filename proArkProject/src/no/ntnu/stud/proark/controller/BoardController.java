@@ -49,6 +49,7 @@ public class BoardController {
 		currentPlayer = 1;
 		currentDiceRoll = Dice.roll();
 		movesLeft = currentDiceRoll;
+		showDiceRoll(currentDiceRoll);
 	}
 	
 	public void showDiceRoll(int number) {

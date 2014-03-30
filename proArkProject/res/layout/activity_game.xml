@@ -21,6 +21,6 @@
 	    android:layout_height="wrap_content"
 	    android:layout_below="@id/gridview"
 	    android:layout_margin="5dp"
-	    android:src="@drawable/dice_1" />
+	     />
 
 </RelativeLayout>

@@ -52,6 +52,7 @@ public class BoardView extends BaseAdapter {
     	GameActivity gameActivity = (GameActivity) mainContext;
     	ImageView diceView = (ImageView) gameActivity.getDiceView();
     	int diceN=0;
+    	
     	switch (diceRoll) {
 		case 1:
 			diceN = DiceSides.DICE_ONE.getDiceImage();
