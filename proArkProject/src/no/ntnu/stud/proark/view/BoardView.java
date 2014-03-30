@@ -2,7 +2,9 @@ package no.ntnu.stud.proark.view;
 
 import no.ntnu.stud.proark.R;
 import no.ntnu.stud.proark.model.Tile;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -71,6 +73,19 @@ public class BoardView extends BaseAdapter {
     	String tileWanted = player == 1 ? "PLAYER_ONE" : "PLAYER_TWO";
 		tileWanted += "_CRASH_" + crashDirection;
 		updateTile(parent, position, Tile.valueOf(tileWanted));
+    }
+   
+    public void showAlertMessage(ViewGroup parent, String message) {
+    	new AlertDialog.Builder(mainContext)
+        .setTitle("Ooops...")
+        .setMessage(message)
+        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) { 
+                // continue with delete
+            }
+         })
+        .setIcon(R.drawable.goal)
+        .show();
     }
     
     // create a new ImageView for each item referenced by the Adapter

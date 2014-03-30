@@ -8,6 +8,7 @@ import no.ntnu.stud.proark.model.Tile;
 import no.ntnu.stud.proark.view.BoardView;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +16,11 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 @SuppressLint("NewApi")
 public class GameActivity extends Activity {
@@ -63,6 +68,7 @@ public class GameActivity extends Activity {
 	        }
 	    });
 	    
+	    
 	}
 
 	@Override
@@ -83,6 +89,5 @@ public class GameActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 		
 	}
-	
-
+    
 }
