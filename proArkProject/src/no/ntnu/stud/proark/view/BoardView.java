@@ -1,10 +1,12 @@
 package no.ntnu.stud.proark.view;
 
 import no.ntnu.stud.proark.R;
+import no.ntnu.stud.proark.model.DiceSides;
 import no.ntnu.stud.proark.model.Tile;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.*;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -41,7 +43,11 @@ public class BoardView extends BaseAdapter {
         return 0;
     }    
     
-    
+    public void updateDice(int diceRoll){
+//        ImageView diceImage = (ImageView) mainContext.
+//        		.findViewById(R.id.dice);
+//        diceImage.setImageResource(R.drawable.dice_3);
+    }
     public void updateTile(ViewGroup parent, int position, Tile tile) {
     	((ImageView) parent.getChildAt(position)).setImageResource(tile.getTileImage());
     }
