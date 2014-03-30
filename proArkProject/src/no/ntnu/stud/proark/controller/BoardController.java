@@ -39,10 +39,14 @@ public class BoardController {
 	}
 	
 	public void startGame(ViewGroup parent) {
+		resetGameVariables();
+		boardView.showMoves(parent, board.getPiecePosition(currentPlayer), movesLeft, false);
+	}
+	
+	public void resetGameVariables() {
 		currentPlayer = 1;
 		currentDiceRoll = 3;
 		movesLeft = currentDiceRoll;
-		boardView.showMoves(parent, board.getPiecePosition(currentPlayer), movesLeft, false);
 	}
 	
 	public void showDiceRoll(int number) {
@@ -50,13 +54,21 @@ public class BoardController {
 		// kall view her
 	}
 	
-	private void playerMoved() {
+	private void playerMoved(ViewGroup parent) {
 		movesLeft -= 1;
 		if (board.getPiecePosition(0) == board.getPiecePosition(currentPlayer)) {
+			// TODO: Show confirmation of winning round here
+			int winner = currentPlayer;
 			gameScore.updateScore(currentPlayer);
+			// TODO: Check for winner here
+			boardView.updateTile(parent, board.getPiecePosition(1), Tile.EMPTY);
+			boardView.updateTile(parent, board.getPiecePosition(2), Tile.EMPTY);
 			board.newRound();
+			resetGameVariables();
+			currentPlayer = board.getNextPLayer(winner);
 		}
 		else if (movesLeft == 0) {
+			// TODO: Show confirmation of next turn here
 			nextPlayer();
 		}
 	}
@@ -66,23 +78,43 @@ public class BoardController {
 		movesLeft = 3;
 	}
 	
+	private void drawPieces(ViewGroup parent) {
+		boardView.updateTile(parent, board.getPiecePosition(1), board.getTile(board.getPiecePosition(1)));
+ 	    boardView.updateTile(parent, board.getPiecePosition(2), board.getTile(board.getPiecePosition(2)));
+ 	    boardView.updateTile(parent, board.getPiecePosition(0), board.getTile(board.getPiecePosition(0)));
+	}
+	
 	public void tileClicked(ViewGroup parent, int position) {
 		Move move = board.makeMove(currentPlayer, position);
 		if (move.isError()) {
 			boardView.showText(move.getErrorReason());
 			if (move.hitWall()) {
 				boardView.crashed(parent, currentPlayer, move.getFrom(), move.getCrashDirection());
+				// TODO: Show confirmation about hitting wall here
+				// Hide move tiles + player
+				boardView.showMoves(parent, move.getFrom(), movesLeft, true);
+				boardView.updateTile(parent, move.getFrom(), Tile.EMPTY);
+				// Put the player back to start in the board model
+				board.movePlayerToStart(currentPlayer);
+				// Redraw all players
+				drawPieces(parent);
+	     	    // Initiate next players turn
+				nextPlayer();
+				// Show moves available after moving (could be other players moving tiles being shown by this)
+				boardView.showMoves(parent, board.getPiecePosition(currentPlayer), movesLeft, false);
 			}
 		}
 		else {
+			// Hide move tiles + player
 			boardView.showMoves(parent, move.getFrom(), movesLeft, true);
 			boardView.updateTile(parent, move.getFrom(), Tile.EMPTY);
 			boardView.updateTile(parent, position, board.getTile(position));
-			playerMoved();
+			// Run a method to see if player moving has any consequenses
+			playerMoved(parent);
+			// Show moves available after moving (could be other players moving tiles being shown by this)
 			boardView.showMoves(parent, board.getPiecePosition(currentPlayer), movesLeft, false);
-			boardView.updateTile(parent, board.getPiecePosition(1), Tile.PLAYER_ONE);
-     	    boardView.updateTile(parent, board.getPiecePosition(2), Tile.PLAYER_TWO);
-     	    boardView.updateTile(parent, board.getPiecePosition(0), Tile.GOAL);
+			// Redraw all players and goal
+			drawPieces(parent);
 		}
 	}
 	

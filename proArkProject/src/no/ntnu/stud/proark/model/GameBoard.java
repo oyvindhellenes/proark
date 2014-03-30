@@ -88,6 +88,17 @@ public class GameBoard {
 		return pieces.get(piece).getPosition();
 	}
 	
+	public void movePlayerToStart(int player) {
+		if (player == 1) {
+			pieces.put(1, new PlayerPiece("Player 1", startingPositions[player_one_start]));
+			board[startingPositions[player_one_start]] = Tile.PLAYER_ONE;
+		}
+		if (player == 2) {
+			pieces.put(2, new PlayerPiece("Player 2", startingPositions[player_two_start]));
+			board[startingPositions[player_two_start]] = Tile.PLAYER_TWO;
+		}
+	}
+	
 	public void newRound() {
 		player_one_start = player_one_start == 3 ? 0 : player_one_start++;
 		player_two_start = player_two_start == 3 ? 0 : player_two_start++;
