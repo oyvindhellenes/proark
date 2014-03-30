@@ -32,7 +32,7 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 		
-		board = new GameBoard(level);
+		board = new GameBoard(level, 2);
 		boardView = BoardView.getInstance();
 		boardView.setContext(this);
 		boardController = BoardController.getInstance();
@@ -40,12 +40,10 @@ public class GameActivity extends Activity {
 		boardController.setBoardView(boardView);
 		
 		final GridView gridView = (GridView) findViewById(R.id.gridview);
-		gridView.setAdapter(new BoardView(this));
+		gridView.setAdapter(boardView);
 
 	    gridView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	        	System.out.println("Parent: " + parent);
-	        	System.out.println("Children: " + parent.getChildCount());
 	        	boardController.tileClicked(parent, position);
 	        }
 	    });
@@ -58,13 +56,13 @@ public class GameActivity extends Activity {
 	        	boardView.updateTile(gridView, 0, Tile.PLAYER_ONE);
 	     	    boardView.updateTile(gridView, 35, Tile.PLAYER_TWO);
 	     	    boardView.updateTile(gridView, 20, Tile.GOAL);
+	     	    boardController.startGame(gridView);	    
 
 	            // unregister listener (this is important)
 	            gridView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 	        }
 	    });
 	    
-	    boardController.startGame();	    
 	}
 
 	@Override

@@ -41,12 +41,36 @@ public class BoardView extends BaseAdapter {
         return 0;
     }    
     
+    
     public void updateTile(ViewGroup parent, int position, Tile tile) {
     	((ImageView) parent.getChildAt(position)).setImageResource(tile.getTileImage());
     }
     
     public void showText(String text) {
     	Toast.makeText(mainContext.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+    }
+    
+    public void showMoves(ViewGroup parent, int position, int moves, boolean hide) {
+    	int column = position % 6;
+    	int row = position / 6;
+    	Tile tile = hide ? Tile.EMPTY : Tile.AVAILABLE_MOVE;
+    	
+    	for (int i=1; i <= moves; i++) {
+    		// Shows moves downward
+    		if (row + i < 6) updateTile(parent, position + (i * 6), tile);
+    		// Upward
+    		if (row - i >= 0) updateTile(parent, position - (i * 6), tile);
+    		// Right
+    		if (column + i < 6) updateTile(parent, position + i, tile);
+    		// Left
+    		if (column - i >= 0) updateTile(parent, position - i, tile);
+    	}
+    }
+    
+    public void crashed(ViewGroup parent, int player, int position, char crashDirection) {
+    	String tileWanted = player == 1 ? "PLAYER_ONE" : "PLAYER_TWO";
+		tileWanted += "_CRASH_" + crashDirection;
+		updateTile(parent, position, Tile.valueOf(tileWanted));
     }
     
     // create a new ImageView for each item referenced by the Adapter
