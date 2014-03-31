@@ -6,6 +6,8 @@ import android.view.View;
 
 public class GameState extends View {
 
+	
+	
 	public GameState(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
