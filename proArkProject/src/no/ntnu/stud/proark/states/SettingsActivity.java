@@ -152,7 +152,7 @@ public class SettingsActivity extends Activity {
 							Log.v("Settings", ""+Parameters.getInstance().getNumberOfRounds());											
 						}else{
 							numberOfRounds.setText(""+Parameters.getInstance().getNumberOfRounds());
-							Toast t = Toast.makeText(pointerHax, "Number of rounds has to be odd", Toast.LENGTH_LONG);
+							Toast t = Toast.makeText(pointerHax, R.string.Odd_number_warning, Toast.LENGTH_LONG);
 							t.show();
 						}
 					}

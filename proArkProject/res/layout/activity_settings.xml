@@ -14,7 +14,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/settingsName"
         android:layout_marginLeft="10dp"
         android:background="@drawable/menuimage"
         android:orientation="vertical" >
@@ -23,7 +23,7 @@
             android:id="@+id/textPlayerOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Player one:"
+            android:text="@string/player_one_"
             android:paddingTop="5dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFF" />
@@ -47,7 +47,7 @@
             android:id="@+id/textPlayerTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Player two:"
+            android:text="@string/player_two_"
             
             android:paddingTop="5dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
-            android:text="Number of rounds:"
+            android:text="@string/number_of_rounds_"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFF" />
 
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:paddingBottom="2dp"
-            android:text="Difficulty:"
+            android:text="@string/difficulty_"
             android:textColor="#FFF"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -103,34 +103,35 @@
                 android:id="@+id/easyRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Easy"
+                android:checked="true"
+                android:text="@string/easy"
                 android:textColor="#FFF" />
 
             <RadioButton
                 android:id="@+id/mediumRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Medium"
+                android:text="@string/medium"
                 android:textColor="#FFF" />
 
             <RadioButton
                 android:id="@+id/hardRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hard"
+                android:text="@string/hard"
                 android:textColor="#FFF" />
         </RadioGroup>
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/settingsName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="Settings"
+        android:text="@string/settings"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff" />
 

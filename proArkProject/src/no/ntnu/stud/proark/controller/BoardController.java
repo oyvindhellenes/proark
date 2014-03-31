@@ -56,7 +56,6 @@ public class BoardController {
 	private void playerMoved(ViewGroup parent) {
 		board.decreaseMovesLeft();
 		if (board.getPiecePosition(0) == board.getCurrentPlayerPosition()) {
-			boardView.showAlertMessage(board.getCurrentPlayer(), 'r', "Round finished", String.format("%s won this round!", board.getPlayerName(board.getCurrentPlayer())));
 			gameScore.updateScore(board.getCurrentPlayer());
 			boardView.updateScore(board.getCurrentPlayer(), gameScore.getScore(board.getCurrentPlayer()));
 			boardView.updateRoundsLeft(gameScore.getRoundsLeft());
@@ -64,6 +63,7 @@ public class BoardController {
 				boardView.showAlertMessage("Game finished", String.format("%s has won the game!", board.getPlayerName(gameScore.getWinner())));
 				return;
 			}
+			boardView.showAlertMessage(board.getCurrentPlayer(), 'r', "Round finished", String.format("%s won this round!", board.getPlayerName(board.getCurrentPlayer())));
 			boardView.updateTile(parent, board.getPiecePosition(1), Tile.EMPTY);
 			boardView.updateTile(parent, board.getPiecePosition(2), Tile.EMPTY);
 			resetGameVariables();
@@ -130,6 +130,9 @@ public class BoardController {
 				boardView.updateTile(parent, position, board.getTile(position));
 				// Run a method to see if player moving has any consequenses
 				playerMoved(parent);
+				if (gameScore.getRoundsLeft() == 0) {
+					return;
+				}
 				// Show moves available after moving (could be other players moving tiles being shown by this)
 				boardView.showMoves(parent, board.getPiecePosition(board.getCurrentPlayer()), board.getMovesLeft(), false);
 				// Redraw all players and goal

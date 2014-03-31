@@ -11,5 +11,13 @@
     <string name="player_one_image">Player 1 image</string>
     <string name="player_two_image">Player 2 image</string>
     <string name="dice_image">Dice image</string>
+    <string name="Odd_number_warning">Number of rounds has to be odd</string>
+    <string name="player_one_">Player one:</string>
+    <string name="player_two_">Player two:</string>
+    <string name="number_of_rounds_">Number of rounds:</string>
+    <string name="difficulty_">Difficulty:</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
 
 </resources>

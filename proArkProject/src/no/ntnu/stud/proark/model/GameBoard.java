@@ -66,8 +66,6 @@ public class GameBoard {
 		pieces.put(1, new PlayerPiece(Parameters.getInstance().getPlayerOne(), startingPositions[player_one_start]));
 		pieces.put(2, new PlayerPiece(Parameters.getInstance().getPlayerTwo(), startingPositions[player_one_start]));
 		setPositions();
-		
-		System.out.println("(init) Current player: "+currentPlayer);
 	}
 	
 	public void setPositions() {
@@ -128,7 +126,6 @@ public class GameBoard {
 	}
 
 	public void decreaseMovesLeft() {
-		System.out.println("(decm) Current player: "+currentPlayer);
 		this.movesLeft--;
 	}
 
