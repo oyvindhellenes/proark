@@ -108,17 +108,45 @@ public class BoardView extends BaseAdapter {
 		updateTile(parent, position, Tile.valueOf(tileWanted));
     }
    
-    public void showAlertMessage(ViewGroup parent, String message) {
+    public void showAlertMessage(ViewGroup parent, int currentPlayer, char alertType, String title, String message) {
+//    	r = round finished, t = turn finished, a = alert/oops etc.
     	new AlertDialog.Builder(mainContext)
-        .setTitle("Ooops...")
+        .setTitle(title)
         .setMessage(message)
         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) { 
                 // continue with delete
             }
          })
-        .setIcon(R.drawable.goal)
+        .setIcon(getAlertIcon(currentPlayer, alertType))
         .show();
+    }
+    private int getAlertIcon(int currentPlayer, int alertType){
+//    	r = round finished, t = turn finished, a = alert/oops etc.
+        int icon =0;
+    	switch (alertType) {
+		case 'r':
+			icon = (R.drawable.goal_alert);
+			break;
+		case 't':
+			if(currentPlayer ==1){
+				icon = (R.drawable.profile_w_pl1);
+			} else {
+				icon = (R.drawable.profile_w_pl2);
+			}
+			break;
+		case 'a':
+			if(currentPlayer == 1) {
+				icon = (R.drawable.alert_pl1);
+			} else {
+				icon = (R.drawable.alert_pl2);
+			}
+			break;
+		default:
+	        icon = (R.drawable.empty);
+			break;
+		}
+    	return icon;
     }
     
     // create a new ImageView for each item referenced by the Adapter

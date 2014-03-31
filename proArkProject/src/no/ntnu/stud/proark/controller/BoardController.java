@@ -61,7 +61,7 @@ public class BoardController {
 	private void playerMoved(ViewGroup parent) {
 		movesLeft -= 1;
 		if (board.getPiecePosition(0) == board.getPiecePosition(currentPlayer)) {
-			boardView.showAlertMessage(parent, String.format("%s won this round!", board.getPlayerName(currentPlayer)));
+			boardView.showAlertMessage(parent, currentPlayer, 'r', "Round finished", String.format("%s won this round!", board.getPlayerName(currentPlayer)));
 			int winner = currentPlayer;
 			gameScore.updateScore(currentPlayer);
 			// TODO: Check for overall winner here
@@ -75,7 +75,7 @@ public class BoardController {
 		}
 		else if (movesLeft == 0) {
 			nextPlayer();
-			boardView.showAlertMessage(parent, String.format("It is now %s's turn", board.getPlayerName(currentPlayer)));
+			boardView.showAlertMessage(parent, currentPlayer, 't', "New turn", String.format("It is now %s's turn", board.getPlayerName(currentPlayer)));
 		}
 	}
 	
@@ -116,12 +116,12 @@ public class BoardController {
 					drawPieces(parent);
 					// Show crash
 					boardView.crashed(parent, currentPlayer, move.getFrom(), move.getCrashDirection());
-					boardView.showAlertMessage(parent, "You have hit a wall and will be moved back to start!");
+					boardView.showAlertMessage(parent, currentPlayer, 'a', "Oooops...", "You have hit a wall and will be moved back to start!");
 					// If a player hits a wall, we store the tile on which it happened and then wait for another tap.
 					hasHitWall = move.getFrom();
 				}
 				if (hasHitWall < 0) {
-					boardView.showAlertMessage(parent, move.getErrorReason());
+					boardView.showAlertMessage(parent, currentPlayer, 'a', "Oooops...", move.getErrorReason());
 				}
 			}
 			else {
