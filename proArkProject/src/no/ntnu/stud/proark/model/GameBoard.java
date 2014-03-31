@@ -14,7 +14,6 @@ import no.ntnu.stud.proark.model.pieces.PlayerPiece;
 
 public class GameBoard {
 	
-	private Difficulty level;
 	private int players = 2;
 	private Tile[] board = new Tile[36];
 	// Players are stored at their ID, goal piece is position 0.
@@ -45,17 +44,30 @@ public class GameBoard {
 	}};
 	
 	public GameBoard() {
-		this.level = Parameters.getInstance().getDifficulty();
+		initBoard(0, 2, 1);
+	}
+	
+	public GameBoard(int player_one_start, int player_two_start, int startingPlayer) {
+		initBoard(player_one_start, player_two_start, startingPlayer);
+	}
+	
+	public void initBoard(int player_one_start, int player_two_start, int startingPlayer) {
+		this.player_one_start = player_one_start;
+		this.player_two_start = player_two_start;
+		this.currentPlayer = startingPlayer;
+		
+		currentDiceRoll = Dice.roll();
+		movesLeft = currentDiceRoll;
+		
 		for (int i=0; i<board.length; i++) {
 			board[i] = Tile.EMPTY;
 		}
+		
 		pieces.put(1, new PlayerPiece(Parameters.getInstance().getPlayerOne(), startingPositions[player_one_start]));
 		pieces.put(2, new PlayerPiece(Parameters.getInstance().getPlayerTwo(), startingPositions[player_one_start]));
 		setPositions();
 		
-		currentPlayer = 1;
-		currentDiceRoll = Dice.roll();
-		movesLeft = currentDiceRoll;
+		System.out.println("(init) Current player: "+currentPlayer);
 	}
 	
 	public void setPositions() {
@@ -90,6 +102,15 @@ public class GameBoard {
 		movesLeft = currentDiceRoll;
 	}
 	
+	public int getNextPlayer() {
+		if (currentPlayer == players) {
+			return 1;
+		}
+		else {
+			return currentPlayer + 1;
+		}
+	}
+	
 	public int getCurrentPlayer() {
 		return currentPlayer;
 	}
@@ -107,6 +128,7 @@ public class GameBoard {
 	}
 
 	public void decreaseMovesLeft() {
+		System.out.println("(decm) Current player: "+currentPlayer);
 		this.movesLeft--;
 	}
 
@@ -167,6 +189,14 @@ public class GameBoard {
 		setPositions();
 	}
 	
+	public int getPlayerOneStart() {
+		return this.player_one_start;
+	}
+	
+	public int getPlayerTwoStart() {
+		return this.player_two_start;
+	}
+
 	/*
 	 * Moving
 	 */

@@ -1,8 +1,6 @@
 package no.ntnu.stud.proark.states;
 
 import no.ntnu.stud.proark.R;
-import no.ntnu.stud.proark.R.layout;
-import no.ntnu.stud.proark.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
