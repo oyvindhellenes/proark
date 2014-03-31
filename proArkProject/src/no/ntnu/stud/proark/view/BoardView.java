@@ -97,22 +97,32 @@ public class BoardView extends BaseAdapter {
 		updateTile(parent, position, Tile.valueOf(tileWanted));
     }
    
-    public void showAlertMessage(ViewGroup parent, int currentPlayer, char alertType, String title, String message) {
-//    	r = round finished, t = turn finished, a = alert/oops etc.
+    public void showAlertMessage(String title, String message) {
+    	// r = round finished, t = turn finished, a = alert/oops etc.
     	new AlertDialog.Builder(mainContext)
         .setTitle(title)
         .setMessage(message)
         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) { 
-                // continue with delete
-            }
+            public void onClick(DialogInterface dialog, int which) {}
+         })
+        .setIcon(R.drawable.goal)
+        .show();
+    }
+    
+    public void showAlertMessage(int currentPlayer, char alertType, String title, String message) {
+    	// r = round finished, t = turn finished, a = alert/oops etc.
+    	new AlertDialog.Builder(mainContext)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {}
          })
         .setIcon(getAlertIcon(currentPlayer, alertType))
         .show();
     }
     
     private int getAlertIcon(int currentPlayer, int alertType){
-//    	r = round finished, t = turn finished, a = alert/oops etc.
+    	// r = round finished, t = turn finished, a = alert/oops etc.
         int icon =0;
     	switch (alertType) {
 		case 'r':
@@ -156,4 +166,10 @@ public class BoardView extends BaseAdapter {
         return imageView;
     }
 	
+    /**
+     * Quit to menu
+     */
+    public void exitToMenu() {
+    	((GameActivity) mainContext).exitToMent();
+    }
 }

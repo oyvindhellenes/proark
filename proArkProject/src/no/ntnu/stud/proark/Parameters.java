@@ -10,11 +10,13 @@ public class Parameters {
 	private Difficulty difficulty;
 	private String playerOne;
 	private String playerTwo;
+	private int numberOfRounds;
 	
 	public Parameters(){
 		difficulty = Difficulty.EASY;
 		playerOne = "Player 1";
 		playerTwo = "Player 2";
+		numberOfRounds = 5;
 	}
 	
 	public static Parameters getInstance () {
@@ -53,7 +55,11 @@ public class Parameters {
 	}
 
 	public void setPlayerOne(String playerOne) {
-		this.playerOne = playerOne;
+		if (playerOne.length() == 0) {
+			this.playerOne = "Player 1";
+		}else {
+			this.playerOne = playerOne;			
+		}
 	}
 
 	public String getPlayerTwo() {
@@ -61,8 +67,21 @@ public class Parameters {
 	}
 
 	public void setPlayerTwo(String playerTwo) {
-		this.playerTwo = playerTwo;
+		if (playerTwo.length() == 0) {
+			this.playerTwo = "Player 2";
+		}else {
+			this.playerTwo = playerTwo;			
+		}
 	}
+
+	public int getNumberOfRounds() {
+		return numberOfRounds;
+	}
+
+	public void setNumberOfRounds(int numberOfRounds) {
+		this.numberOfRounds = numberOfRounds;
+	}
+	
 	
 	
 }

@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:textColor="#FFF"
+            android:background="#222"
             android:imeOptions="actionDone"
             android:inputType="textNoSuggestions"  
             android:singleLine="true" 
@@ -61,7 +62,27 @@
             android:singleLine="true" 
             android:inputType="textNoSuggestions"  
             android:textColor="#FFF"
+            android:background="#222"
             android:ems="10" />
+
+        <TextView
+            android:id="@+id/TextViewNumberOfRounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="Number of rounds:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFF" />
+
+        <EditText
+            android:id="@+id/numberOfRounds"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:ems="10"
+            android:textColor="#FFF"
+            android:background="#222"
+            android:inputType="number" />
 
         <TextView
             android:id="@+id/textView2"
@@ -82,7 +103,6 @@
                 android:id="@+id/easyRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:text="Easy"
                 android:textColor="#FFF" />
 

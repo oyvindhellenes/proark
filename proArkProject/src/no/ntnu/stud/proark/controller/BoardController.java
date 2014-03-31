@@ -6,7 +6,6 @@ import no.ntnu.stud.proark.model.GameBoard;
 import no.ntnu.stud.proark.model.GameScore;
 import no.ntnu.stud.proark.model.Move;
 import no.ntnu.stud.proark.model.Tile;
-import no.ntnu.stud.proark.model.pieces.Dice;
 import no.ntnu.stud.proark.view.BoardView;
 
 public class BoardController {
@@ -20,7 +19,7 @@ public class BoardController {
 	private int players = 2;
 	
 	public BoardController() {
-		this.gameScore = new GameScore(3, players);
+		this.gameScore = new GameScore(Parameters.getInstance().getNumberOfRounds(), players);
 	}
 	
 	public static BoardController getInstance() {
@@ -35,7 +34,7 @@ public class BoardController {
 	}
 	
 	public void resetGameVariables() {
-		board = new GameBoard();
+		board = new GameBoard(board.getPlayerOneStart(), board.getPlayerTwoStart(), board.getNextPlayer());
 	}
 	
 	public void startGame(ViewGroup parent) {
@@ -54,20 +53,21 @@ public class BoardController {
 	private void playerMoved(ViewGroup parent) {
 		board.decreaseMovesLeft();
 		if (board.getPiecePosition(0) == board.getCurrentPlayerPosition()) {
-			boardView.showAlertMessage(parent, board.getCurrentPlayer(), 'r', "Round finished", String.format("%s won this round!", board.getPlayerName(board.getCurrentPlayer())));
+			boardView.showAlertMessage(board.getCurrentPlayer(), 'r', "Round finished", String.format("%s won this round!", board.getPlayerName(board.getCurrentPlayer())));
 			gameScore.updateScore(board.getCurrentPlayer());
 			boardView.updateScore(board.getCurrentPlayer(), gameScore.getScore(board.getCurrentPlayer()));
 			boardView.updateRoundsLeft(gameScore.getRoundsLeft());
-			// TODO: Check for overall winner here
+			if (gameScore.getRoundsLeft() == 0) {
+				boardView.showAlertMessage("Game finished", String.format("%s has won the game!", board.getPlayerName(gameScore.getWinner())));
+				return;
+			}
 			boardView.updateTile(parent, board.getPiecePosition(1), Tile.EMPTY);
 			boardView.updateTile(parent, board.getPiecePosition(2), Tile.EMPTY);
-			board.newRound();
 			resetGameVariables();
-			board.nextPLayer();
 		}
 		else if (board.getMovesLeft() == 0) {
 			nextPlayer();
-			boardView.showAlertMessage(parent, board.getCurrentPlayer(), 't', "New turn", String.format("It is now %s's turn", board.getPlayerName(board.getCurrentPlayer())));
+			boardView.showAlertMessage(board.getCurrentPlayer(), 't', "New turn", String.format("It is now %s's turn", board.getPlayerName(board.getCurrentPlayer())));
 		}
 	}
 	
@@ -83,6 +83,10 @@ public class BoardController {
 	}
 	
 	public void tileClicked(ViewGroup parent, int position) {
+		if (gameScore.getRoundsLeft() == 0) {
+			boardView.exitToMenu();
+			return;
+		}
 		// We set the player back to start when they hit a wall, but we do it on the next tap
 		if (board.getHasHitWall() >= 0) {
 			boardView.updateTile(parent, board.getHasHitWall(), Tile.EMPTY);
@@ -107,12 +111,12 @@ public class BoardController {
 					drawPieces(parent);
 					// Show crash
 					boardView.crashed(parent, board.getCurrentPlayer(), move.getFrom(), move.getCrashDirection());
-					boardView.showAlertMessage(parent, board.getCurrentPlayer(), 'a', "Oooops...", "You have hit a wall and will be moved back to start!");
+					boardView.showAlertMessage(board.getCurrentPlayer(), 'a', "Oooops...", "You have hit a wall and will be moved back to start!");
 					// If a player hits a wall, we store the tile on which it happened and then wait for another tap.
 					board.hasHitWall();
 				}
 				if (board.getHasHitWall() < 0) {
-					boardView.showAlertMessage(parent, board.getCurrentPlayer(), 'a', "Oooops...", move.getErrorReason());
+					boardView.showAlertMessage(board.getCurrentPlayer(), 'a', "Oooops...", move.getErrorReason());
 				}
 			}
 			else {
