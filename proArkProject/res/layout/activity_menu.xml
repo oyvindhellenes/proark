@@ -35,6 +35,7 @@
             android:background="#719eb3"
             android:onClick="onClickGame"
             android:text="@string/new_game" />
+
     </LinearLayout>
 
     <TextView

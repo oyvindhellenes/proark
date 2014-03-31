@@ -1,10 +1,13 @@
 package no.ntnu.stud.proark;
 
+import no.ntnu.stud.proark.model.Difficulty;
+
 public class Parameters {
 	public static Parameters instance = null;
 	
 	private int pixelWidth = 0;
 	private int pixelHeight = 0;
+	Difficulty difficulty = Difficulty.EASY;
 	
 	public Parameters(){
 		
@@ -31,6 +34,14 @@ public class Parameters {
 
 	public void setPixelHeight(int pixelHeight) {
 		this.pixelHeight = pixelHeight;
+	}
+
+	public Difficulty getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(Difficulty difficulty) {
+		this.difficulty = difficulty;
 	}
 	
 }
