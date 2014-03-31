@@ -2,7 +2,7 @@ package no.ntnu.stud.proark.model;
 
 import no.ntnu.stud.proark.R;
 
-public enum Dice {
+public enum DiceSides {
 	DICE_ONE(R.drawable.dice_1),
 	DICE_TWO(R.drawable.dice_2),
 	DICE_THREE(R.drawable.dice_3),
@@ -14,7 +14,7 @@ public enum Dice {
 	public int getDiceImage(){
 		return this.imageRef;
 	}
-	Dice(int imageRef){
+	DiceSides(int imageRef){
 		this.imageRef = imageRef;
 	}
 }

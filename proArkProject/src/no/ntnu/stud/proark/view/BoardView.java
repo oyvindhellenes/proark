@@ -1,14 +1,19 @@
 package no.ntnu.stud.proark.view;
 
 import no.ntnu.stud.proark.R;
+import no.ntnu.stud.proark.model.DiceSides;
 import no.ntnu.stud.proark.model.Tile;
+import no.ntnu.stud.proark.model.pieces.Dice;
+import no.ntnu.stud.proark.states.GameActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.*;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class BoardView extends BaseAdapter {
@@ -43,7 +48,35 @@ public class BoardView extends BaseAdapter {
         return 0;
     }    
     
-    
+    public void updateDice(int diceRoll){
+    	GameActivity gameActivity = (GameActivity) mainContext;
+    	ImageView diceView = (ImageView) gameActivity.getDiceView();
+    	int diceN=0;
+    	
+    	switch (diceRoll) {
+		case 1:
+			diceN = DiceSides.DICE_ONE.getDiceImage();
+			break;
+		case 2:
+			diceN = DiceSides.DICE_TWO.getDiceImage();
+			break;		
+		case 3:
+			diceN = DiceSides.DICE_THREE.getDiceImage();
+			break;
+		case 4:
+			diceN = DiceSides.DICE_FOUR.getDiceImage();
+				break;		
+		case 5:
+			diceN = DiceSides.DICE_FIVE.getDiceImage();
+			break;
+		case 6:
+			diceN = DiceSides.DICE_SIX.getDiceImage();
+			break;
+		default:
+			break;
+		}
+    	diceView.setImageResource(diceN);
+    }
     public void updateTile(ViewGroup parent, int position, Tile tile) {
     	((ImageView) parent.getChildAt(position)).setImageResource(tile.getTileImage());
     }
