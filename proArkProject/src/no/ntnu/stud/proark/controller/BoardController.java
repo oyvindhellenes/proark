@@ -34,10 +34,6 @@ public class BoardController {
 		this.boardView = boardView;
 	}
 	
-	public void setBoard(GameBoard board) {
-		this.board = board;
-	}
-	
 	public void resetGameVariables() {
 		board = new GameBoard();
 	}

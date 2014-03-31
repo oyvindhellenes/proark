@@ -38,11 +38,9 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 		
-		board = new GameBoard(level, 2);
 		boardView = BoardView.getInstance();
 		boardView.setContext(this);
 		boardController = BoardController.getInstance();
-		boardController.setBoard(board);
 		boardController.setBoardView(boardView);
 		
 		final GridView gridView = (GridView) findViewById(R.id.gridview);
