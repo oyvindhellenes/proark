@@ -39,11 +39,11 @@ public class BoardController {
 	}
 	
 	public void resetGameVariables() {
-		board = new GameBoard(Parameters.getInstance().getDifficulty(), players);
+		board = new GameBoard();
 	}
 	
 	public void startGame(ViewGroup parent) {
-		board = new GameBoard(Parameters.getInstance().getDifficulty(), this.players);
+		board = new GameBoard();
 		boardView.showMoves(parent, board.getCurrentPlayerPosition(), board.getMovesLeft(), false);
 		showDiceRoll(board.getCurrentDiceRoll());
 	}

@@ -1,12 +1,10 @@
 package no.ntnu.stud.proark.model;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import android.graphics.Rect;
 import no.ntnu.stud.proark.Parameters;
 import no.ntnu.stud.proark.model.pieces.BoardPiece;
 import no.ntnu.stud.proark.model.pieces.Dice;
@@ -17,7 +15,7 @@ import no.ntnu.stud.proark.model.pieces.PlayerPiece;
 public class GameBoard {
 	
 	private Difficulty level;
-	private int players;
+	private int players = 2;
 	private Tile[] board = new Tile[36];
 	// Players are stored at their ID, goal piece is position 0.
 	private Map<Integer, BoardPiece> pieces = new HashMap<Integer, BoardPiece>();
@@ -46,14 +44,13 @@ public class GameBoard {
 		add(new Move(28, 29));
 	}};
 	
-	public GameBoard(Difficulty level, int players) {
-		this.level = level;
-		this.players = players;
+	public GameBoard() {
+		this.level = Parameters.getInstance().getDifficulty();
 		for (int i=0; i<board.length; i++) {
 			board[i] = Tile.EMPTY;
 		}
-		pieces.put(1, new PlayerPiece("Player 1", startingPositions[player_one_start]));
-		pieces.put(2, new PlayerPiece("Player 2", startingPositions[player_one_start]));
+		pieces.put(1, new PlayerPiece(Parameters.getInstance().getPlayerOne(), startingPositions[player_one_start]));
+		pieces.put(2, new PlayerPiece(Parameters.getInstance().getPlayerTwo(), startingPositions[player_one_start]));
 		setPositions();
 		
 		currentPlayer = 1;
