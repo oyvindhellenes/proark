@@ -90,8 +90,6 @@ public class BoardController {
 	public void tileClicked(ViewGroup parent, int position) {
 		// We set the player back to start when they hit a wall, but we do it on the next tap
 		if (hasHitWall >= 0) {
-			// Hide move tiles + player
-			boardView.showMoves(parent, hasHitWall, movesLeft, true);
 			boardView.updateTile(parent, hasHitWall, Tile.EMPTY);
 			// Put the player back to start in the board model
 			board.movePlayerToStart(currentPlayer);
@@ -108,6 +106,11 @@ public class BoardController {
 			Move move = board.makeMove(currentPlayer, position);
 			if (move.isError()) {
 				if (move.hitWall()) {
+					// Hide move tiles + player
+					boardView.showMoves(parent, move.getFrom(), movesLeft, true);
+					// Redraw all players
+					drawPieces(parent);
+					// Show crash
 					boardView.crashed(parent, currentPlayer, move.getFrom(), move.getCrashDirection());
 					boardView.showAlertMessage(parent, "You have hit a wall and will be moved back to start!");
 					// If a player hits a wall, we store the tile on which it happened and then wait for another tap.
