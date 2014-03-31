@@ -7,11 +7,16 @@ import no.ntnu.stud.proark.R.menu;
 import no.ntnu.stud.proark.model.Difficulty;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnKeyListener;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -54,28 +59,53 @@ public class SettingsActivity extends Activity {
 		
 		playerOneInput.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				Parameters.getInstance().setPlayerOne(s.toString());
+			}
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				Parameters.getInstance().setPlayerOne(s.toString());
-			}	
+					int after) {}	
 			@Override
 			public void afterTextChanged(Editable s) {}
 		});
 		playerTwoInput.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				Parameters.getInstance().setPlayerTwo(s.toString());
+			}
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				Log.v("Settings1", Parameters.getInstance().getPlayerOne());
-				Log.v("Settings2", Parameters.getInstance().getPlayerTwo());
-				Parameters.getInstance().setPlayerTwo(s.toString());
-			}	
+					int after) {}	
 			@Override
 			public void afterTextChanged(Editable s) {}
 		});
+		
+		playerOneInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+	        @Override
+	        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+	            if (actionId == EditorInfo.IME_ACTION_DONE) {
+	            	playerOneInput.clearFocus();
+	            	InputMethodManager imm = (InputMethodManager)getSystemService(
+	            		      Context.INPUT_METHOD_SERVICE);
+	            		imm.hideSoftInputFromWindow(playerOneInput.getWindowToken(), 0);
+	                return true;
+	            }
+	            return false;
+	        }
+	    });
+		playerTwoInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+	        @Override
+	        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+	            if (actionId == EditorInfo.IME_ACTION_DONE) {
+	            	playerTwoInput.clearFocus();
+	            	InputMethodManager imm = (InputMethodManager)getSystemService(
+	            		      Context.INPUT_METHOD_SERVICE);
+	            		imm.hideSoftInputFromWindow(playerTwoInput.getWindowToken(), 0);
+	                return true;
+	            }
+	            return false;
+	        }
+	    });
 	}
 
 	@Override
