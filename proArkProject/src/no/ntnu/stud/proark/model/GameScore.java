@@ -1,8 +1,5 @@
 package no.ntnu.stud.proark.model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class GameScore {
 	private int roundsLeft;
 	private int[] players;
@@ -14,7 +11,6 @@ public class GameScore {
 	public void updateScore(int playerNumber){
 		players[playerNumber-1] += 1;
 		roundsLeft -= 1;
-		System.out.println("Player "+playerNumber+ "s score is now "+players[playerNumber-1]);
 	}
 	
 	public int getRoundsLeft() {
@@ -25,4 +21,14 @@ public class GameScore {
 		return this.players[player-1]; 
 	}
 
+	public int getWinner() {
+		int winner = -1;
+		int highestScore = -1;
+		for (int i=0; i<players.length; i++) {
+			if (players[i] > highestScore) {
+				winner = i;
+			}
+		}
+		return ++winner;
+	}
 }
