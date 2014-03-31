@@ -38,11 +38,9 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 		
-		board = new GameBoard(level, 2);
 		boardView = BoardView.getInstance();
 		boardView.setContext(this);
 		boardController = BoardController.getInstance();
-		boardController.setBoard(board);
 		boardController.setBoardView(boardView);
 		
 		final GridView gridView = (GridView) findViewById(R.id.gridview);
@@ -62,18 +60,22 @@ public class GameActivity extends Activity {
 	        	boardView.updateTile(gridView, 0, Tile.PLAYER_ONE);
 	     	    boardView.updateTile(gridView, 35, Tile.PLAYER_TWO);
 	     	    boardView.updateTile(gridView, 20, Tile.GOAL);
-	     	    boardController.startGame(gridView);	    
+	     	    boardController.startGame(gridView);	  
 
 	            // unregister listener (this is important)
 	            gridView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 	        }
 	    });
-	    
-	    
+
+	    // Draw player images in the bottom of the screen
+	    final ImageView playerOne = (ImageView) findViewById(R.id.player1);
+	    playerOne.setImageResource(R.drawable.profile_b_pl1);
+ 	    final ImageView playerTwo = (ImageView) findViewById(R.id.player2);
+ 	    playerTwo.setImageResource(R.drawable.profile_b_pl2);
 	}
 
-	public ImageView getDiceView(){
-		return (ImageView) findViewById(R.id.dice);
+	public ImageView getViewById(int id) {
+		return (ImageView) findViewById(id);
 
 	}
 	@Override

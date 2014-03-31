@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class BoardView extends BaseAdapter {
 	
@@ -43,25 +43,29 @@ public class BoardView extends BaseAdapter {
 
     public long getItemId(int position) {
         return 0;
-    }    
+    }   
+    
+    public View getViewById(int id) {
+    	GameActivity gameActivity = (GameActivity) mainContext;
+    	return (ImageView) gameActivity.getViewById(id);
+    }
     
     public void updateDice(int diceRoll){
-    	GameActivity gameActivity = (GameActivity) mainContext;
-    	ImageView diceView = (ImageView) gameActivity.getDiceView();
+    	ImageView diceView = (ImageView) getViewById(R.id.dice);
     	
     	String diceImage = "DICE_"+diceRoll;
     	int diceImg = DiceSides.valueOf(diceImage).getDiceImage();
     	
-    	diceView.setImageResource(diceImg);
+    	diceView.setImageResource(diceImg);	
     }
-    
     
     public void updateTile(ViewGroup parent, int position, Tile tile) {
     	((ImageView) parent.getChildAt(position)).setImageResource(tile.getTileImage());
     }
     
-    public void showText(String text) {
-    	Toast.makeText(mainContext.getApplicationContext(), text, Toast.LENGTH_LONG).show();
+    public void updateRoundsLeft(int roundsLeft) {
+    	TextView rounds = (TextView) getViewById(R.id.rounds_left);
+    	rounds.setText("Rounds left -- "+roundsLeft);
     }
     
     public void showMoves(ViewGroup parent, int position, int moves, boolean hide) {
@@ -100,6 +104,7 @@ public class BoardView extends BaseAdapter {
         .setIcon(getAlertIcon(currentPlayer, alertType))
         .show();
     }
+    
     private int getAlertIcon(int currentPlayer, int alertType){
 //    	r = round finished, t = turn finished, a = alert/oops etc.
         int icon =0;
@@ -108,7 +113,7 @@ public class BoardView extends BaseAdapter {
 			icon = (R.drawable.goal_alert);
 			break;
 		case 't':
-			if(currentPlayer ==1){
+			if(currentPlayer ==1) {
 				icon = (R.drawable.profile_w_pl1);
 			} else {
 				icon = (R.drawable.profile_w_pl2);

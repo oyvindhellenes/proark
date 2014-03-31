@@ -1,14 +1,13 @@
 package no.ntnu.stud.proark.model;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import android.graphics.Rect;
 import no.ntnu.stud.proark.Parameters;
 import no.ntnu.stud.proark.model.pieces.BoardPiece;
+import no.ntnu.stud.proark.model.pieces.Dice;
 import no.ntnu.stud.proark.model.pieces.GoalPiece;
 import no.ntnu.stud.proark.model.pieces.PlayerPiece;
 
@@ -16,12 +15,18 @@ import no.ntnu.stud.proark.model.pieces.PlayerPiece;
 public class GameBoard {
 	
 	private Difficulty level;
-	private int players;
+	private int players = 2;
 	private Tile[] board = new Tile[36];
 	// Players are stored at their ID, goal piece is position 0.
 	private Map<Integer, BoardPiece> pieces = new HashMap<Integer, BoardPiece>();
 	private int[] startingPositions = new int[]{0,30,35,5};
 	private int player_one_start = 0, player_two_start = 2;
+	
+	// Game state variables
+	private int currentPlayer;
+	private int movesLeft;
+	private int currentDiceRoll;
+	private int hasHitWall = -1;
 	
 	// Predefined set of walls
 	private Set<Move> walls = new HashSet<Move>(){{
@@ -39,15 +44,18 @@ public class GameBoard {
 		add(new Move(28, 29));
 	}};
 	
-	public GameBoard(Difficulty level, int players) {
-		this.level = level;
-		this.players = players;
+	public GameBoard() {
+		this.level = Parameters.getInstance().getDifficulty();
 		for (int i=0; i<board.length; i++) {
 			board[i] = Tile.EMPTY;
 		}
-		pieces.put(1, new PlayerPiece("Player 1", startingPositions[player_one_start]));
-		pieces.put(2, new PlayerPiece("Player 2", startingPositions[player_one_start]));
+		pieces.put(1, new PlayerPiece(Parameters.getInstance().getPlayerOne(), startingPositions[player_one_start]));
+		pieces.put(2, new PlayerPiece(Parameters.getInstance().getPlayerTwo(), startingPositions[player_one_start]));
 		setPositions();
+		
+		currentPlayer = 1;
+		currentDiceRoll = Dice.roll();
+		movesLeft = currentDiceRoll;
 	}
 	
 	public void setPositions() {
@@ -71,13 +79,55 @@ public class GameBoard {
 	 * State methods
 	 */
 	
-	public int getNextPLayer(int currentPlayer) {
+	public void nextPLayer() {
 		if (currentPlayer == players) {
-			return 1;
+			this.currentPlayer = 1;
 		}
 		else {
-			return currentPlayer + 1;
+			this.currentPlayer++;
 		}
+		currentDiceRoll = Dice.roll();
+		movesLeft = currentDiceRoll;
+	}
+	
+	public int getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(int currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+	
+	public int getCurrentPlayerPosition() {
+		return pieces.get(currentPlayer).getPosition();
+	}
+
+	public int getMovesLeft() {
+		return movesLeft;
+	}
+
+	public void decreaseMovesLeft() {
+		this.movesLeft--;
+	}
+
+	public int getCurrentDiceRoll() {
+		return currentDiceRoll;
+	}
+
+	public void setCurrentDiceRoll(int currentDiceRoll) {
+		this.currentDiceRoll = currentDiceRoll;
+	}
+
+	public void unsetHasHitWall() {
+		this.hasHitWall = -1;
+	}
+
+	public void hasHitWall() {
+		this.hasHitWall = getCurrentPlayerPosition();
+	}
+
+	public int getHasHitWall() {
+		return this.hasHitWall;
 	}
 	
 	/**
