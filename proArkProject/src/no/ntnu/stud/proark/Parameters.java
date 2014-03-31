@@ -7,10 +7,14 @@ public class Parameters {
 	
 	private int pixelWidth = 0;
 	private int pixelHeight = 0;
-	Difficulty difficulty = Difficulty.EASY;
+	private Difficulty difficulty;
+	private String playerOne;
+	private String playerTwo;
 	
 	public Parameters(){
-		
+		difficulty = Difficulty.EASY;
+		playerOne = "Player 1";
+		playerTwo = "Player 2";
 	}
 	
 	public static Parameters getInstance () {
@@ -43,5 +47,22 @@ public class Parameters {
 	public void setDifficulty(Difficulty difficulty) {
 		this.difficulty = difficulty;
 	}
+
+	public String getPlayerOne() {
+		return playerOne;
+	}
+
+	public void setPlayerOne(String playerOne) {
+		this.playerOne = playerOne;
+	}
+
+	public String getPlayerTwo() {
+		return playerTwo;
+	}
+
+	public void setPlayerTwo(String playerTwo) {
+		this.playerTwo = playerTwo;
+	}
+	
 	
 }
