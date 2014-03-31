@@ -1,6 +1,7 @@
 package no.ntnu.stud.proark.controller;
 
 import android.view.ViewGroup;
+import no.ntnu.stud.proark.Parameters;
 import no.ntnu.stud.proark.model.GameBoard;
 import no.ntnu.stud.proark.model.GameScore;
 import no.ntnu.stud.proark.model.Move;
@@ -18,7 +19,7 @@ public class BoardController {
 	private int players = 2;
 	
 	public BoardController() {
-		this.gameScore = new GameScore(5, players);
+		this.gameScore = new GameScore(Parameters.getInstance().getNumberOfRounds(), players);
 	}
 	
 	public static BoardController getInstance() {
