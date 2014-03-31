@@ -42,6 +42,9 @@ public class BoardController {
 		board = new GameBoard();
 		boardView.showMoves(parent, board.getCurrentPlayerPosition(), board.getMovesLeft(), false);
 		showDiceRoll(board.getCurrentDiceRoll());
+		boardView.updateRoundsLeft(gameScore.getRoundsLeft());
+		boardView.updateScore(1, 0);
+		boardView.updateScore(2, 0);
 	}
 	
 	public void showDiceRoll(int number) {
@@ -52,8 +55,9 @@ public class BoardController {
 		board.decreaseMovesLeft();
 		if (board.getPiecePosition(0) == board.getCurrentPlayerPosition()) {
 			boardView.showAlertMessage(parent, board.getCurrentPlayer(), 'r', "Round finished", String.format("%s won this round!", board.getPlayerName(board.getCurrentPlayer())));
-			int winner = board.getCurrentPlayer();
 			gameScore.updateScore(board.getCurrentPlayer());
+			boardView.updateScore(board.getCurrentPlayer(), gameScore.getScore(board.getCurrentPlayer()));
+			boardView.updateRoundsLeft(gameScore.getRoundsLeft());
 			// TODO: Check for overall winner here
 			boardView.updateTile(parent, board.getPiecePosition(1), Tile.EMPTY);
 			boardView.updateTile(parent, board.getPiecePosition(2), Tile.EMPTY);
