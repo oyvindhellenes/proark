@@ -159,6 +159,7 @@ public class GameBoard {
 	}
 	
 	public void newRound() {
+		int winner = getCurrentPlayer();
 		player_one_start = player_one_start == 3 ? 0 : ++player_one_start;
 		player_two_start = player_two_start == 3 ? 0 : ++player_two_start;
 		movePlayerToStart(1);

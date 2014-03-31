@@ -47,7 +47,7 @@ public class BoardView extends BaseAdapter {
     
     public View getViewById(int id) {
     	GameActivity gameActivity = (GameActivity) mainContext;
-    	return (ImageView) gameActivity.getViewById(id);
+    	return gameActivity.getViewById(id);
     }
     
     public void updateDice(int diceRoll){
@@ -65,7 +65,13 @@ public class BoardView extends BaseAdapter {
     
     public void updateRoundsLeft(int roundsLeft) {
     	TextView rounds = (TextView) getViewById(R.id.rounds_left);
-    	rounds.setText("Rounds left -- "+roundsLeft);
+    	rounds.setText("ROUNDS LEFT: "+roundsLeft);
+    }
+    
+    public void updateScore(int player, int score) {
+    	View v = player == 1 ? getViewById(R.id.player_one_score) : getViewById(R.id.player_two_score);
+    	TextView rounds = (TextView) v;
+    	rounds.setText(""+score);
     }
     
     public void showMoves(ViewGroup parent, int position, int moves, boolean hide) {

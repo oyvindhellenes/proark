@@ -74,8 +74,8 @@ public class GameActivity extends Activity {
  	    playerTwo.setImageResource(R.drawable.profile_b_pl2);
 	}
 
-	public ImageView getViewById(int id) {
-		return (ImageView) findViewById(id);
+	public View getViewById(int id) {
+		return findViewById(id);
 
 	}
 	@Override
