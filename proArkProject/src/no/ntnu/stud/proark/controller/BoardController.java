@@ -75,6 +75,7 @@ public class BoardController {
 		}
 		else if (movesLeft == 0) {
 			nextPlayer();
+			System.out.println("SUP?---------board get player name "+board.getPlayerName(currentPlayer));
 			boardView.showAlertMessage(parent, currentPlayer, 't', "New turn", String.format("It is now %s's turn", board.getPlayerName(currentPlayer)));
 		}
 	}

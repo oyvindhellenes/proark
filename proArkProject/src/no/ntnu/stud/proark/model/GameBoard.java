@@ -46,7 +46,7 @@ public class GameBoard {
 			board[i] = Tile.EMPTY;
 		}
 		pieces.put(1, new PlayerPiece("Player 1", startingPositions[player_one_start]));
-		pieces.put(2, new PlayerPiece("Player 1", startingPositions[player_one_start]));
+		pieces.put(2, new PlayerPiece("Player 2", startingPositions[player_one_start]));
 		setPositions();
 	}
 	
