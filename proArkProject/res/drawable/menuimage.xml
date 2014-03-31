@@ -2,7 +2,8 @@
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
 	android:src="@drawable/menubackground"
 	android:gravity="bottom|center"
-	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
+	android:layout_width="fill_parent"
 	android:color="#000"
+	
 />
