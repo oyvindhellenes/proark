@@ -18,26 +18,40 @@ import android.view.View.OnKeyListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SettingsActivity extends Activity {
 
 	private RadioGroup radioGroup;
 	private EditText playerOneInput;
 	private EditText playerTwoInput;
+	private EditText numberOfRounds;
+	private Context pointerHax;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
-		
+		pointerHax = this;
+
 		radioGroup = (RadioGroup) findViewById(R.id.radioGroupDifficulty);
 		playerOneInput = (EditText) findViewById(R.id.editPlayerOneName);
 		playerTwoInput = (EditText) findViewById(R.id.editPlayerTwoName);
+		numberOfRounds = (EditText) findViewById(R.id.numberOfRounds);
 		playerOneInput.setText(Parameters.getInstance().getPlayerOne());
 		playerTwoInput.setText(Parameters.getInstance().getPlayerTwo());
+		numberOfRounds.setText(""+Parameters.getInstance().getNumberOfRounds());
+		if (Parameters.getInstance().getDifficulty() == Difficulty.EASY) {
+			((RadioButton)findViewById(R.id.easyRadioButton)).setChecked(true);
+		}else if (Parameters.getInstance().getDifficulty() == Difficulty.MEDIUM) {
+			((RadioButton)findViewById(R.id.mediumRadioButton)).setChecked(true);
+		}else if (Parameters.getInstance().getDifficulty() == Difficulty.HARD) {
+			((RadioButton)findViewById(R.id.hardRadioButton)).setChecked(true);
+		}
 		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -80,6 +94,27 @@ public class SettingsActivity extends Activity {
 			public void afterTextChanged(Editable s) {}
 		});
 		
+//		numberOfRounds.addTextChangedListener(new TextWatcher() {
+//			@Override
+//			public void onTextChanged(CharSequence s, int start, int before, int count) {
+//				if (s.length() != 0) {
+//					String st = s.toString();
+//					if (Integer.parseInt(st) % 2 != 0) {
+//						Parameters.getInstance().setNumberOfRounds(Integer.parseInt(s.toString()));
+//						Log.v("Settings", ""+Parameters.getInstance().getNumberOfRounds());											
+//					}else{
+//						Toast t = Toast.makeText(pointerHax, "Number of rounds has to be odd", Toast.LENGTH_LONG);
+//						t.show();
+//					}
+//				}
+//			}
+//			@Override
+//			public void beforeTextChanged(CharSequence s, int start, int count,
+//					int after) {}	
+//			@Override
+//			public void afterTextChanged(Editable s) {}
+//		});
+//		
 		playerOneInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 	        @Override
 	        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -101,6 +136,30 @@ public class SettingsActivity extends Activity {
 	            	InputMethodManager imm = (InputMethodManager)getSystemService(
 	            		      Context.INPUT_METHOD_SERVICE);
 	            		imm.hideSoftInputFromWindow(playerTwoInput.getWindowToken(), 0);
+	                return true;
+	            }
+	            return false;
+	        }
+	    });
+		numberOfRounds.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+	        @Override
+	        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+	            if (actionId == EditorInfo.IME_ACTION_DONE) {
+	            	String s = v.getText().toString();
+	    			if (s.length() != 0) {
+						if (Integer.parseInt(s) % 2 != 0) {
+							Parameters.getInstance().setNumberOfRounds(Integer.parseInt(s.toString()));
+							Log.v("Settings", ""+Parameters.getInstance().getNumberOfRounds());											
+						}else{
+							//numberOfRounds.setText(Parameters.getInstance().getNumberOfRounds());
+							Toast t = Toast.makeText(pointerHax, "Number of rounds has to be odd", Toast.LENGTH_LONG);
+							t.show();
+						}
+					}
+	            	numberOfRounds.clearFocus();
+	            	InputMethodManager imm = (InputMethodManager)getSystemService(
+	            		      Context.INPUT_METHOD_SERVICE);
+	            		imm.hideSoftInputFromWindow(numberOfRounds.getWindowToken(), 0);
 	                return true;
 	            }
 	            return false;
