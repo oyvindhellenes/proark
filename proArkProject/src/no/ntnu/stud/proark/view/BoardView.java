@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class BoardView extends BaseAdapter {
@@ -57,6 +58,17 @@ public class BoardView extends BaseAdapter {
     	int diceImg = DiceSides.valueOf(diceImage).getDiceImage();
     	
     	diceView.setImageResource(diceImg);	
+    }
+    public void updateActivePlayerFrame(int player){
+    	LinearLayout player1ScoreBoard = (LinearLayout) getViewById(R.id.player_one_stats);
+    	LinearLayout player2ScoreBoard = (LinearLayout) getViewById(R.id.player_two_stats);
+    	if(player == 1){
+    		player1ScoreBoard.setBackgroundResource(R.drawable.pl_score_border);
+    		player2ScoreBoard.setBackgroundResource(0);
+    	} else {
+    		player2ScoreBoard.setBackgroundResource(R.drawable.pl_score_border);
+    		player1ScoreBoard.setBackgroundResource(0);
+    	}
     }
     
     public void updateTile(ViewGroup parent, int position, Tile tile) {

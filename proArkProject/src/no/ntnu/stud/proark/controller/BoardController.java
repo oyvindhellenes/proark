@@ -1,5 +1,7 @@
 package no.ntnu.stud.proark.controller;
 
+import java.util.Currency;
+
 import android.view.ViewGroup;
 import no.ntnu.stud.proark.Parameters;
 import no.ntnu.stud.proark.model.GameBoard;
@@ -44,6 +46,7 @@ public class BoardController {
 		boardView.updateRoundsLeft(gameScore.getRoundsLeft());
 		boardView.updateScore(1, 0);
 		boardView.updateScore(2, 0);
+		boardView.updateActivePlayerFrame(board.getCurrentPlayer());
 	}
 	
 	public void showDiceRoll(int number) {
@@ -73,6 +76,7 @@ public class BoardController {
 	
 	private void nextPlayer() {
 		board.nextPLayer();
+		boardView.updateActivePlayerFrame(board.getCurrentPlayer());
 		showDiceRoll(board.getCurrentDiceRoll());
 	}
 	

@@ -49,12 +49,12 @@
 		    android:orientation="vertical" 
 		    android:layout_gravity="center_horizontal"
 		    
-    		android:background="@drawable/pl_score_border"
 	         >
 	        
 		    <ImageView
 			    android:id="@+id/player1"
 			    android:contentDescription="@string/player_one_image"
+			    android:layout_marginTop="30dp"
 			    android:layout_width="120dp"
 			    android:layout_height="0dip"
 				android:layout_weight="1"
@@ -101,6 +101,7 @@
 			    android:contentDescription="@string/player_two_image"
 			    android:layout_width="120dp"
 			    android:layout_height="0dip"
+			    android:layout_marginTop="30dp"
 			    android:layout_weight="1"
 			    android:layout_gravity="center_horizontal"
 			     />
